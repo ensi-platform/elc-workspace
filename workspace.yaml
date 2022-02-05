@@ -1,0 +1,37 @@
+name: ensi
+variables:
+  NETWORK: ensi
+  BASE_DOMAIN: ensi.127.0.0.1.nip.io
+  APPS_PATH: /home/madridianfox/work/ensi/apps
+  DB_PASSWORD: password
+  HOME_PATH: ${WORKSPACE_PATH}/home
+
+templates:
+  - name: fpm-8.1
+    path: ${WORKSPACE_PATH}/templates/fpm-8.1
+    compose_file: ${TPL_PATH}/docker-compose.yml
+    variables:
+      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.1-master-2022jan17-1
+      APP_IMAGE: fpm-8.1:latest
+      NGINX_IMAGE: nginx:1.19-alpine
+
+services:
+  - name: proxy
+    path: ${WORKSPACE_PATH}/services/proxy
+    compose_file: ${SVC_PATH}/docker-compose.yml
+    variables:
+      APP_IMAGE: jwilder/nginx-proxy:latest
+
+  - name: database
+    path: ${WORKSPACE_PATH}/services/database
+    compose_file: ${SVC_PATH}/docker-compose.yml
+    variables:
+      APP_IMAGE: postgis/postgis:13-3.1
+
+  - name: customers-crm
+    extends: fpm-8.1
+    path: ${APPS_PATH}/customers/crm
+    variables: {}
+    dependencies:
+      proxy: []
+      database: [test]

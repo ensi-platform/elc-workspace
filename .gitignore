@@ -1,0 +1,4 @@
+.idea
+home/*
+services/database/data/*
+env.yaml

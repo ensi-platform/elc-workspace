@@ -1,0 +1,17 @@
+services:
+  app:
+    image: $APP_IMAGE
+    networks:
+      - dev
+    volumes:
+      - "${SVC_PATH}/data:/var/lib/postgresql/data"
+      - "${SVC_PATH}/bin/initdb-citext.sh:/docker-entrypoint-initdb.d/citext.sh"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+networks:
+  dev:
+    external: true
+    name: $NETWORK
