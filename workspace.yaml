@@ -16,6 +16,13 @@ templates:
       BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.1-master-2022jan17-1
       APP_IMAGE: fpm-8.1:latest
       NGINX_IMAGE: nginx:1.19-alpine
+  - name: swoole-8.1
+    path: ${WORKSPACE_PATH}/templates/swoole-8.1
+    compose_file: ${TPL_PATH}/docker-compose.yml
+    variables:
+      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.1-task-83916-2021jan28-1-swoole
+      APP_IMAGE: swoole-8.1:latest
+      NGINX_IMAGE: nginx:1.19-alpine
 
 services:
   - name: proxy
@@ -31,7 +38,7 @@ services:
       APP_IMAGE: postgis/postgis:13-3.1
 
   - name: customers-crm
-    extends: fpm-8.1
+    extends: swoole-8.1
     path: ${APPS_PATH}/customers/crm
     variables: {}
     dependencies:

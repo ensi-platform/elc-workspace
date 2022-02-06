@@ -1,0 +1,38 @@
+#!/bin/bash
+
+umask 0000
+
+cd /var/www
+
+if [ -e "container.env" ]; then
+    variables=$(sed "s/^#.*//" "container.env")
+    if [ "$variables" != "" ]; then
+        export $variables
+    fi
+fi
+
+if [ ! -e /var/www/storage/ensi ] && [ -e /var/data ]; then
+    ln -s /var/data /var/www/storage/ensi
+fi
+
+if [ ! -L /var/www/public/storage ]; then
+    if [ -e vendor ]; then
+        php artisan storage:link
+    fi
+fi
+
+#while true; do
+#    php artisan octane:start --watch || sleep 1
+#done
+SHELL=/bin/bash ./node_modules/.bin/chokidar -d 1000 -t 1000 -s --initial --silent \
+        "app" \
+        "bootstrap" \
+        "config" \
+        "database" \
+        "public/**/*.php" \
+        "resources/**/*.php" \
+        "routes" \
+        "composer.lock" \
+        ".env" \
+        -c "killall php &> /dev/null; php artisan octane:start"
+sleep 3600
