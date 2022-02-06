@@ -5,6 +5,7 @@ services:
       context: $TPL_PATH/php
       args:
         - BASE_IMAGE=$BASE_IMAGE
+        - GROUP_ID=$GROUP_ID
     hostname: "$APP_NAME.$BASE_DOMAIN"
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -22,7 +23,7 @@ services:
       - "$HOME_PATH:/tmp/home"
       - "$HOME_PATH/.npm:/.npm"
       - "$HOME_PATH/.config:/.config"
-      - "$WORKSPACE_PATH/packages:$WORKSPACE_PATH/packages"
+      - "$PACKAGES_PATH:$PACKAGES_PATH"
       - "$TPL_PATH/php/entrypoint:/usr/local/bin/entrypoint"
     networks:
       - dev

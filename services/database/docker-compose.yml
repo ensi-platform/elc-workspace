@@ -3,6 +3,7 @@ services:
     image: $APP_IMAGE
     networks:
       - dev
+    hostname: "$APP_NAME.$BASE_DOMAIN"
     volumes:
       - "${SVC_PATH}/data:/var/lib/postgresql/data"
       - "${SVC_PATH}/bin/initdb-citext.sh:/docker-entrypoint-initdb.d/citext.sh"

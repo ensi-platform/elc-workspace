@@ -1,10 +1,12 @@
 name: ensi
 variables:
-  NETWORK: ensi
+  NETWORK: ${NETWORK}  # from env.yaml
   BASE_DOMAIN: ensi.127.0.0.1.nip.io
-  APPS_PATH: /home/madridianfox/work/ensi/apps
-  DB_PASSWORD: password
+  APPS_PATH: ${APPS_PATH} # from env.yaml
+  PACKAGES_PATH: ${PACKAGES_PATH} # from env.yaml
   HOME_PATH: ${WORKSPACE_PATH}/home
+  DB_PASSWORD: password
+  GROUP_ID: ${GROUP_ID} # from env.yaml
 
 templates:
   - name: fpm-8.1
