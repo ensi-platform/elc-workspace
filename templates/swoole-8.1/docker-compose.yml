@@ -5,6 +5,7 @@ services:
       context: $TPL_PATH/php
       args:
         - BASE_IMAGE=$BASE_IMAGE
+        - USER_ID=$USER_ID
         - GROUP_ID=$GROUP_ID
     hostname: "$APP_NAME.$BASE_DOMAIN"
     extra_hosts:

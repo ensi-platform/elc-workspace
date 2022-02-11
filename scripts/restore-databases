@@ -1,0 +1,9 @@
+#!/bin/bash
+
+BACKUP_DIR=./backup
+
+for i in "${BACKUP_DIR}"/*; do
+    printf "Restore database %-50s" "${i}"
+    cat "${i}" | elc --svc=database psql -Upostgres postgres &> /dev/null
+    echo "    [OK]"
+done

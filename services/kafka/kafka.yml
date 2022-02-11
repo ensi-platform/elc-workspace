@@ -1,0 +1,38 @@
+services:
+  app:
+    image: $KAFKA_IMAGE
+    hostname: "$APP_NAME.$BASE_DOMAIN"
+    networks:
+      - dev
+    expose:
+      - "9093"
+    environment:
+      KAFKA_SECURITY_PROTOCOL: SASL_PLAINTEXT
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:SASL_PLAINTEXT
+      KAFKA_SASL_ENABLED_MECHANISMS: PLAIN
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://$APP_NAME.$BASE_DOMAIN:9093,OUTSIDE://$APP_NAME.$BASE_DOMAIN:9092
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper.$APP_NAME.$BASE_DOMAIN:2181
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka-conf/kafka_server_jaas.conf"
+    volumes:
+      - "${SVC_PATH}/data:/etc/kafka"
+      - "${SVC_PATH}/kafka_server_jaas.conf:/etc/kafka-conf/kafka_server_jaas.conf"
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+  zookeeper:
+    image: $ZOOKEEPER_IMAGE
+    hostname: "zookeeper.$APP_NAME.$BASE_DOMAIN"
+    expose:
+      - "2181"
+    networks:
+      - dev
+
+networks:
+  dev:
+    external: true
+    name: $NETWORK

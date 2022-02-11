@@ -1,0 +1,27 @@
+services:
+  app:
+    image: $NGINX_IMAGE
+    hostname: "$APP_NAME.$BASE_DOMAIN"
+    networks:
+      - dev
+    environment:
+      VIRTUAL_HOST: "es.$BASE_DOMAIN,imgproxy.$BASE_DOMAIN"
+      ORIGINAL_HOST: "es.$BASE_DOMAIN"
+      IMGPROXY_HOST: "imgproxy.$BASE_DOMAIN"
+    volumes:
+      - "${SVC_PATH}/default.conf.template:/etc/nginx/templates/default.conf.template"
+      - "${SVC_PATH}/cache:/var/lib/nginx/proxy_cache"
+      - "${SVC_PATH}/data/public:/var/www/data"
+
+  imgproxy:
+    image: $IMGPROXY_IMAGE
+    environment:
+      IMGPROXY_LOCAL_FILESYSTEM_ROOT: /data
+    network_mode: "service:app"
+    volumes:
+      - "${SVC_PATH}/data/public:/data"
+
+networks:
+  dev:
+    external: true
+    name: $NETWORK

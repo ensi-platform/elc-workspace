@@ -1,0 +1,15 @@
+services:
+  app:
+    image: $APP_IMAGE
+    hostname: "$APP_NAME.$BASE_DOMAIN"
+    networks:
+      - dev
+    environment:
+      - "VIRTUAL_HOST=$APP_NAME.$BASE_DOMAIN"
+      - "VIRTUAL_PORT=8081"
+      - "REDIS_HOSTS=local:redis.$BASE_DOMAIN:6379"
+
+networks:
+  dev:
+    external: true
+    name: $NETWORK

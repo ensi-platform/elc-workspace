@@ -1,0 +1,9 @@
+#!/bin/bash
+
+dbs=$(elc --svc=database psql -Upostgres -l -t | awk '{print $1}' | sed -E '/(template|postgres|\|)/d')
+
+for db in $dbs; do
+    printf "Drop database %-25s" "${db}"
+    elc --svc=database psql -Upostgres postgres -c "drop database ${db};" &> /dev/null
+    echo "    [OK]"
+done

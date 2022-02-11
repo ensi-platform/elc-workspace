@@ -21,9 +21,6 @@ if [ ! -L /var/www/public/storage ]; then
     fi
 fi
 
-#while true; do
-#    php artisan octane:start --watch || sleep 1
-#done
 SHELL=/bin/bash ./node_modules/.bin/chokidar -d 1000 -t 1000 -s --initial --silent \
         "app" \
         "bootstrap" \
@@ -34,5 +31,5 @@ SHELL=/bin/bash ./node_modules/.bin/chokidar -d 1000 -t 1000 -s --initial --sile
         "routes" \
         "composer.lock" \
         ".env" \
-        -c "killall php &> /dev/null; php artisan octane:start"
+        -c "php artisan octane:stop &> /dev/null; php artisan octane:start --host=0.0.0.0 --workers=2 --task-workers=2"
 sleep 3600

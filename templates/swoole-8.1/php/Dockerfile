@@ -4,12 +4,15 @@ FROM composer as composer
 
 FROM $BASE_IMAGE
 
+ARG USER_ID
 ARG GROUP_ID
 
 RUN addgroup --gid $GROUP_ID user
+RUN adduser -u $GROUP_ID -S -D -H -G user user
 RUN addgroup www-data user
+RUN addgroup user www-data
 
-RUN apk add npm git openjdk8-jre-base bash
+RUN apk add npm git openjdk8-jre-base bash htop vim mc
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 

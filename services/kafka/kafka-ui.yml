@@ -1,0 +1,20 @@
+services:
+  app:
+    image: $APP_IMAGE
+    hostname: "$APP_NAME.$BASE_DOMAIN"
+    networks:
+      - dev
+    environment:
+      VIRTUAL_HOST: "$APP_NAME.$BASE_DOMAIN"
+      VIRTUAL_PORT: "8080"
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka.$BASE_DOMAIN:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper.kafka.$BASE_DOMAIN:2181
+      KAFKA_CLUSTERS_0_PROPERTIES_SECURITY_PROTOCOL: SASL_PLAINTEXT
+      KAFKA_CLUSTERS_0_PROPERTIES_SASL_MECHANISM: PLAIN
+      KAFKA_CLUSTERS_0_PROPERTIES_SASL_JAAS_CONFIG: 'org.apache.kafka.common.security.plain.PlainLoginModule required username="client" password="secret";'
+
+networks:
+  dev:
+    external: true
+    name: $NETWORK

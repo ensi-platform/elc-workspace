@@ -1,5 +1,2 @@
 .idea
-home/*
-!home/.bashrc
-services/database/data/*
 env.yaml
