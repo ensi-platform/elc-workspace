@@ -11,13 +11,13 @@ variables:
   HOME_PATH: ${WORKSPACE_PATH}/home
 
 templates:
-  - name: fpm-8.1
+  fpm-8.1:
     path: ${WORKSPACE_PATH}/templates/fpm-8.1
     variables:
       BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.1-master-2022jan17-1
       APP_IMAGE: fpm-8.1:latest
       NGINX_IMAGE: nginx:1.19-alpine
-  - name: swoole-8.1
+  swoole-8.1:
     path: ${WORKSPACE_PATH}/templates/swoole-8.1
     variables:
       BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.1-task-83916-2021jan28-1-swoole
@@ -28,17 +28,17 @@ services:
 
   # ====== INFRA
 
-  - name: proxy
+  proxy:
     path: ${WORKSPACE_PATH}/services/proxy
     variables:
       APP_IMAGE: jwilder/nginx-proxy:latest
 
-  - name: database
+  database:
     path: ${WORKSPACE_PATH}/services/database
     variables:
       APP_IMAGE: postgis/postgis:13-3.1
 
-  - name: es
+  es:
     path: ${WORKSPACE_PATH}/services/es
     variables:
       NGINX_IMAGE: nginx:1.19.3-alpine
@@ -46,13 +46,13 @@ services:
     dependencies:
       proxy: [default]
 
-  - name: elastic
+  elastic:
     path: ${WORKSPACE_PATH}/services/elastic
     compose_file: ${SVC_PATH}/elastic.yml
     variables:
       APP_IMAGE: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
       JAVA_MEMORY: '512m'
-  - name: kibana
+  kibana:
     path: ${WORKSPACE_PATH}/services/elastic
     compose_file: ${SVC_PATH}/kibana.yml
     variables:
@@ -61,12 +61,12 @@ services:
       proxy: [default]
       elastic: [default]
 
-  - name: redis
+  redis:
     path: ${WORKSPACE_PATH}/services/redis
     compose_file: ${SVC_PATH}/redis.yml
     variables:
       APP_IMAGE: redis:6
-  - name: redis-ui
+  redis-ui:
     path: ${WORKSPACE_PATH}/services/redis
     compose_file: ${SVC_PATH}/redis-ui.yml
     variables:
@@ -75,13 +75,13 @@ services:
       proxy: [default]
       redis: [default]
 
-  - name: kafka
+  kafka:
     path: ${WORKSPACE_PATH}/services/kafka
     compose_file: ${SVC_PATH}/kafka.yml
     variables:
       KAFKA_IMAGE: wurstmeister/kafka
       ZOOKEEPER_IMAGE: wurstmeister/zookeeper
-  - name: kafka-ui
+  kafka-ui:
     path: ${WORKSPACE_PATH}/services/kafka
     compose_file: ${SVC_PATH}/kafka-ui.yml
     variables:
@@ -92,147 +92,147 @@ services:
 
   # ======= APPS
 
-  - name: admin-gui-backend
+  admin-gui-backend:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_ADMIN_GUI_BACKEND_PATH:-admin-gui/admin-gui-backend}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: admin-gui-frontend
+  admin-gui-frontend:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_ADMIN_GUI_FRONTEND_PATH:-admin-gui/admin-gui-frontend}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: catalog-feed
+  catalog-feed:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_CATALOG_FEED_PATH:-catalog/feed}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: catalog-offers
+  catalog-offers:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_CATALOG_OFFERS_PATH:-catalog/offers}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: catalog-pim
+  catalog-pim:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_CATALOG_PIM_PATH:-catalog/pim}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: cms-cms
+  cms-cms:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_CMS_CMS_PATH:-cms/cms}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: communication-communication
+  communication-communication:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_COMMUNICATION_COMMUNICATION_PATH:-communication/communication}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: communication-im
+  communication-im:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_COMMUNICATION_INTERNAL_MESSENGER_PATH:-communication/internal-messenger}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: customers-crm
+  customers-crm:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_CUSTOMERS_CRM_PATH:-customers/crm}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: customers-customers
+  customers-customers:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_CUSTOMERS_CUSTOMERS_PATH:-customers/customers}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: customers-customer-auth
+  customers-customer-auth:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_CUSTOMERS_CUSTOMER_AUTH_PATH:-customers/customer-auth}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: logistic-geo
+  logistic-geo:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_LOGISTIC_GEO_PATH:-logistic/geo}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: logistic-logistic
+  logistic-logistic:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_LOGISTIC_LOGISTIC_PATH:-logistic/logistic}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: marketing-marketing
+  marketing-marketing:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_MARKETING_MARKETING_PATH:-marketing/marketing}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: orders-baskets
+  orders-baskets:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_ORDERS_BACKETS_PATH:-orders/baskets}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: orders-oms
+  orders-oms:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_ORDERS_OMS_PATH:-orders/oms}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: orders-packing
+  orders-packing:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_ORDERS_PACKING_PATH:-orders/packing}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: reviews-reviews
+  reviews-reviews:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_REVIEWS_REVIEWS_PATH:-reviews/reviews}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: units-admin-auth
+  units-admin-auth:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_UNITS_ADMIN_AUTH_PATH:-units/admin-auth}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: units-bu
+  units-bu:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_UNITS_BU_PATH:-units/bu}
     dependencies:
       database: [default, hook]
       proxy:    [default]
 
-  - name: units-seller-auth
+  units-seller-auth:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_UNITS_SELLER_AUTH_PATH:-units/seller-auth}
     dependencies:
