@@ -1,0 +1,31 @@
+#!/bin/bash
+
+read -r -d '' dbs << EOF
+admin_gui_backend
+catalog_offers
+catalog_pim
+cms_cms
+communication
+customers_crm
+customers_customer_auth
+customers_customers
+feeds_feed
+internal_messenger
+logistic_calculator
+logistic_geo
+marketing_marketing
+oms
+orders_baskets
+orders_packing
+reviews_reviews
+units_admin_auth
+units_bu
+units_seller_auth
+EOF
+
+for db in $dbs; do
+    printf "Drop database %-50s" "${db}"
+    elc --svc=database psql -Upostgres -c "drop database ${db};" &> /dev/null
+    elc --svc=database psql -Upostgres -c "drop database ${db}_test;" &> /dev/null
+    echo "    [OK]"
+done

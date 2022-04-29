@@ -1,7 +1,7 @@
 name: ensi
 variables:
-  DEFAULT_PACKAGES_PATH: ${WORKSPACE_PATH}/packages
-  DEFAULT_APPS_ROOT: ${WORKSPACE_PATH}/apps
+  DEFAULT_PACKAGES_PATH: ${WORKSPACE_PATH}/../packages
+  DEFAULT_APPS_ROOT: ${WORKSPACE_PATH}/../apps
   PACKAGES_PATH: ${PACKAGES_PATH:-$DEFAULT_PACKAGES_PATH}
   APPS_ROOT: ${APPS_ROOT:-$DEFAULT_APPS_ROOT}
   NETWORK: ${NETWORK:-ensi}
@@ -238,3 +238,9 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+
+modules: {}
+  # template--sdk-php:
+  #   path: ${PACKAGES_PATH}/${TEMPLATE_SDK_PHP_PACKAGE_PATH:-template--sdk-php}
+  #   hosted_in: cms-cms
+  #   exec_path: ${PACKAGES_PATH}/${TEMPLATE_SDK_PHP_PACKAGE_PATH:-template--sdk-php}
