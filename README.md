@@ -1,12 +1,12 @@
 # Ensi ELC workspace
 
-Конфигурация воркспейса [ELC](https://github.com/ensi-platform/ensi-local-ctl) для разработки сервисов Ensi.
+Конфигурация воркспейса [ELC](https://github.com/ensi-platform/elc) для разработки сервисов Ensi.
 
 ## Установка
 
 Клонируем воркспейс в удобное для вас место, однако если вы работаете под Windows, то клонировать воркспейс необходимо внутрь WSL.
 ```bash
-git clone git@github.com:ensi-platform/ensi-workspace.git ~/work/ensi/workspace
+git clone git@github.com:ensi-platform/elc-workspace.git ~/work/ensi/workspace
 ```
 Выполняем скрипт инициализации
 ```bash
@@ -15,7 +15,7 @@ cd ~/work/ensi/workspace
 ./scripts/create-dbs # если собираетесь развернуть базы из бэкапа, этого делать не надо
 ```
 
-Копируем файл env.example.yaml, даём ему имя env.yaml, обязаельно задаём переменные
+Копируем файл env.example.yaml, даём ему имя env.yaml, обязательно задаём переменные
 ```
 APPS_ROOT: /home/<user>/work/ensi/apps
 PACKAGES_PATH: /home/<user>/work/ensi/packages
