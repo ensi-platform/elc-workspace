@@ -192,7 +192,7 @@ services:
 
   orders-baskets:
     extends: swoole-8.1
-    path: ${APPS_ROOT}/${SVC_ORDERS_BACKETS_PATH:-orders/baskets}
+    path: ${APPS_ROOT}/${SVC_ORDERS_BASKETS_PATH:-orders/baskets}
     dependencies:
       database: [default, hook]
       proxy:    [default]
