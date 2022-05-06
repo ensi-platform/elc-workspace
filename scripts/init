@@ -5,4 +5,5 @@ chmod -R 777 home/{.config,.npm,composer,composer_cache}
 
 mkdir -p services/{database,elastic,kafka}/data
 mkdir -p services/es/{data,cache}
+mkdir -p services/es/data/{public,protected}
 chmod -R 777 services/{database,elastic,es,kafka}/data
