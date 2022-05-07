@@ -8,6 +8,10 @@
 ```bash
 git clone git@github.com:ensi-platform/elc-workspace.git ~/work/ensi/workspace
 ```
+Создаём сеть для проекта
+```
+docker network create ensi
+```
 Выполняем скрипт инициализации
 ```bash
 cd ~/work/ensi/workspace
@@ -107,6 +111,8 @@ sudo mv ensi-old/apps/oms ensi/apps/orders/oms
 elc set-hooks .git_hooks
 elc composer install
 elc npm install
+cp .env.example .env
+elc php artisan key:generate
 elc restart
 ```
 Бэк-сервисы работают на laravel octane, и в режиме разработки запускаются через chokidar - программу, которая следит за изменением кода и перезапускает сервер.
