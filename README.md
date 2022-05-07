@@ -12,6 +12,10 @@ git clone git@github.com:ensi-platform/elc-workspace.git ~/work/ensi/workspace
 ```
 docker network create ensi
 ```
+Регистрируем воркспейс (важно указать полный путь, а не относительный)
+```
+elc workspace add ensi ~/work/ensi/workspace
+```
 Выполняем скрипт инициализации
 ```bash
 cd ~/work/ensi/workspace
