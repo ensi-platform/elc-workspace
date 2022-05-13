@@ -14,13 +14,13 @@ templates:
   fpm-8.1:
     path: ${WORKSPACE_PATH}/templates/fpm-8.1
     variables:
-      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.1-master-2022jan17-1
+      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.1-master-2022may13
       APP_IMAGE: fpm-8.1:latest
       NGINX_IMAGE: nginx:1.19-alpine
   swoole-8.1:
     path: ${WORKSPACE_PATH}/templates/swoole-8.1
     variables:
-      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.1-task-83916-2021jan28-1-swoole
+      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.1-master-2022may13-swoole
       APP_IMAGE: swoole-8.1:latest
       NGINX_IMAGE: nginx:1.19-alpine
 
