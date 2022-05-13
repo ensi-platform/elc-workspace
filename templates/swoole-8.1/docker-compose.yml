@@ -26,6 +26,7 @@ services:
       - "$HOME_PATH/.config:/.config"
       - "$PACKAGES_PATH:$PACKAGES_PATH"
       - "$TPL_PATH/php/entrypoint:/usr/local/bin/entrypoint"
+      - "$WORKSPACE_PATH/services/es/data:/var/data"
     networks:
       - dev
   nginx:

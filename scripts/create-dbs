@@ -1,20 +1,20 @@
 #!/bin/bash
 
 read -r -d '' dbs << EOF
-admin_gui_backend
 catalog_offers
 catalog_pim
+catalog_feed
 cms_cms
-communication
+communication_communication_manager
+communication_internal_messenger
 customers_crm
 customers_customer_auth
 customers_customers
 feeds_feed
-internal_messenger
 logistic_calculator
 logistic_geo
 marketing_marketing
-oms
+orders_oms
 orders_baskets
 orders_packing
 reviews_reviews
