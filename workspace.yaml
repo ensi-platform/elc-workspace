@@ -16,13 +16,13 @@ templates:
     variables:
       BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.1-master-2022may13
       APP_IMAGE: fpm-8.1:latest
-      NGINX_IMAGE: nginx:1.19-alpine
+      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
   swoole-8.1:
     path: ${WORKSPACE_PATH}/templates/swoole-8.1
     variables:
       BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.1-master-2022may13-swoole
       APP_IMAGE: swoole-8.1:latest
-      NGINX_IMAGE: nginx:1.19-alpine
+      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
 
 services:
 
@@ -31,18 +31,18 @@ services:
   proxy:
     path: ${WORKSPACE_PATH}/services/proxy
     variables:
-      APP_IMAGE: jwilder/nginx-proxy:latest
+      APP_IMAGE: dockerhub.greensight.ru/services/nginx/nginx-proxy:latest #original docker image - jwilder/nginx-proxy:latest
 
   database:
     path: ${WORKSPACE_PATH}/services/database
     variables:
-      APP_IMAGE: postgis/postgis:13-3.1
+      APP_IMAGE: dockerhub.greensight.ru/services/postgis:13-3.1 #original docker image - postgis/postgis:13-3.1
 
   es:
     path: ${WORKSPACE_PATH}/services/es
     variables:
-      NGINX_IMAGE: nginx:1.19.3-alpine
-      IMGPROXY_IMAGE: darthsim/imgproxy:latest
+      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
+      IMGPROXY_IMAGE: dockerhub.greensight.ru/services/imgproxy:latest #original docker image - darthsim/imgproxy:latest
     dependencies:
       proxy: [default]
 
@@ -50,13 +50,13 @@ services:
     path: ${WORKSPACE_PATH}/services/elastic
     compose_file: ${SVC_PATH}/elastic.yml
     variables:
-      APP_IMAGE: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+      APP_IMAGE: dockerhub.greensight.ru/services/elasticsearch:7.9.2 #original docker image - docker.elastic.co/elasticsearch/elasticsearch:7.9.2
       JAVA_MEMORY: '512m'
   kibana:
     path: ${WORKSPACE_PATH}/services/elastic
     compose_file: ${SVC_PATH}/kibana.yml
     variables:
-      APP_IMAGE: docker.elastic.co/kibana/kibana:7.9.2
+      APP_IMAGE: dockerhub.greensight.ru/services/kibana:7.9.2 #original docker image - docker.elastic.co/kibana/kibana:7.9.2
     dependencies:
       proxy: [default]
       elastic: [default]
@@ -70,7 +70,7 @@ services:
     path: ${WORKSPACE_PATH}/services/redis
     compose_file: ${SVC_PATH}/redis-ui.yml
     variables:
-      APP_IMAGE: rediscommander/redis-commander:latest
+      APP_IMAGE: dockerhub.greensight.ru/services/redis-commander:latest #original docker image - rediscommander/redis-commander:latest
     dependencies:
       proxy: [default]
       redis: [default]
@@ -79,13 +79,13 @@ services:
     path: ${WORKSPACE_PATH}/services/kafka
     compose_file: ${SVC_PATH}/kafka.yml
     variables:
-      KAFKA_IMAGE: wurstmeister/kafka
-      ZOOKEEPER_IMAGE: wurstmeister/zookeeper
+      KAFKA_IMAGE: dockerhub.greensight.ru/services/kafka:latest #original docker image - wurstmeister/kafka
+      ZOOKEEPER_IMAGE: dockerhub.greensight.ru/services/zookeeper:latest #original docker image -wurstmeister/zookeeper
   kafka-ui:
     path: ${WORKSPACE_PATH}/services/kafka
     compose_file: ${SVC_PATH}/kafka-ui.yml
     variables:
-      APP_IMAGE: provectuslabs/kafka-ui
+      APP_IMAGE: dockerhub.greensight.ru/services/kafka-ui:latest #original docker image - provectuslabs/kafka-ui
     dependencies:
       proxy: [default]
       kafka: [default]
