@@ -1,27 +1,56 @@
 #!/bin/bash
 
-read -r -d '' dbs << EOF
-catalog_offers
-catalog_pim
-catalog_feed
-cms_cms
-communication_communication_manager
-communication_internal_messenger
-customers_crm
-customers_customer_auth
-customers_customers
-feeds_feed
-logistic_calculator
-logistic_geo
-marketing_marketing
-orders_oms
-orders_baskets
-orders_packing
-reviews_reviews
-units_admin_auth
-units_bu
-units_seller_auth
-EOF
+# source: https://github.com/mrbaseman/parse_yaml.git
+parse_yaml() {
+    local yaml_file=$1
+    local prefix=$2
+    local s
+    local w
+    local fs
+
+    s='[[:space:]]*'
+    w='[a-zA-Z0-9_.-]*'
+    fs="$(echo @ | tr @ '\034')"
+
+    (
+        sed -e '/- [^\“]'"[^\']"'.*: /s|\([ ]*\)- \([[:space:]]*\)|\1-\'$'\n''  \1\2|g' |
+            sed -ne '/^--/s|--||g; s|\"|\\\"|g; s/[[:space:]]*$//g;' \
+                -e 's/\$/\\\$/g' \
+                -e "/#.*[\"\']/!s| #.*||g; /^#/s|#.*||g;" \
+                -e "s|^\($s\)\($w\)$s:$s\"\(.*\)\"$s\$|\1$fs\2$fs\3|p" \
+                -e "s|^\($s\)\($w\)${s}[:-]$s\(.*\)$s\$|\1$fs\2$fs\3|p" |
+            awk -F"$fs" '{
+            indent = length($1)/2;
+            if (length($2) == 0) { conj[indent]="+";} else {conj[indent]="";}
+            vname[indent] = $2;
+            for (i in vname) {if (i > indent) {delete vname[i]}}
+                if (length($3) > 0) {
+                    vn=""; for (i=0; i<indent; i++) {vn=(vn)(vname[i])("_")}
+                    #printf("%s%s%s%s=(\"%s\")\n", "'"$prefix"'",vn, $2, conj[indent-1], $3);
+					service = vn$2
+					gsub("-", "_", service)
+					
+					if(service ~ /^services_.*dependencies_database$/) {
+						service = substr(service, 10, length(service)-31);
+						print service
+
+					}
+				
+                }
+            }' |
+            sed -e 's/_=/+=/g' |
+            awk 'BEGIN {
+                FS="=";
+                OFS="="
+            }
+            /(-|\.).*=/ {
+                gsub("-|\\.", "_", $1)
+            }
+            { print }'
+    ) <"$yaml_file"
+}
+
+dbs=$(printf '%s\n' "" | parse_yaml "./workspace.yaml")
 
 for db in $dbs; do
     printf "Create database %-50s" "${db}"
