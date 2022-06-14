@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# source: https://github.com/mrbaseman/parse_yaml.git
 parse_yaml() {
     local yaml_file=$1
     local prefix=$2
@@ -33,7 +32,6 @@ parse_yaml() {
 					if(service ~ /^services_.*dependencies_database$/) {
 						service = substr(service, 10, length(service)-31);
 						print service
-
 					}
 				
                 }
