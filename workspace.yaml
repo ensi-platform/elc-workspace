@@ -169,6 +169,13 @@ services:
       database: [default, hook]
       proxy:    [default]
 
+  customer-api-gateway:
+    extends: swoole-8.1
+    path: ${APPS_ROOT}/${SVC_CUSTOMER_GUI_CUSTOMER_API_GATEWAY_PATH:-customer-gui/customer-api-gateway}
+    dependencies:
+      database: [default, hook]
+      proxy:    [default]
+
   logistic-geo:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_LOGISTIC_GEO_PATH:-logistic/geo}
