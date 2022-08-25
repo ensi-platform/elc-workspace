@@ -11,10 +11,10 @@ variables:
   HOME_PATH: ${WORKSPACE_PATH}/home
 
 templates:
-  front:
-    path: ${WORKSPACE_PATH}/templates/front
+  nodejs:
+    path: ${WORKSPACE_PATH}/templates/nodejs
     variables:
-      APP_IMAGE: front:latest
+      APP_IMAGE: nodejs:latest
       NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine
   fpm-8.1:
     path: ${WORKSPACE_PATH}/templates/fpm-8.1
@@ -105,8 +105,10 @@ services:
       proxy:    [default]
 
   admin-gui-frontend:
-    extends: front
+    extends: nodejs
     path: ${APPS_ROOT}/${SVC_ADMIN_GUI_FRONTEND_PATH:-admin-gui/admin-gui-frontend}
+    variables:
+      API_HOST: http://admin-gui-backend.${BASE_DOMAIN}
     dependencies:
       database: [default, hook]
       proxy:    [default]

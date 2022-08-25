@@ -29,7 +29,7 @@ server {
         }
 
         location /api/v1 {
-            proxy_pass "http://admin-gui-backend.$BASE_DOMAIN/${request_uri}";
+            proxy_pass "$BACKEND_DOMAIN/${request_uri}";
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_cache off;
