@@ -11,6 +11,11 @@ variables:
   HOME_PATH: ${WORKSPACE_PATH}/home
 
 templates:
+  front:
+    path: ${WORKSPACE_PATH}/templates/front
+    variables:
+      APP_IMAGE: front:latest
+      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine
   fpm-8.1:
     path: ${WORKSPACE_PATH}/templates/fpm-8.1
     variables:
@@ -100,7 +105,7 @@ services:
       proxy:    [default]
 
   admin-gui-frontend:
-    extends: swoole-8.1
+    extends: front
     path: ${APPS_ROOT}/${SVC_ADMIN_GUI_FRONTEND_PATH:-admin-gui/admin-gui-frontend}
     dependencies:
       database: [default, hook]
