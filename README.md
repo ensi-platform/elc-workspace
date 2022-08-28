@@ -85,13 +85,20 @@ sudo mv ensi-old/apps/oms ensi/apps/orders/oms
 
 ## Подготовка сервисов к запуску
 
-В каждом сервисе необходимо выполнить
+При клонировании сервиса командой `elc clone` автоматически выполняется скрипт, который устанавливает зависимости сервиса,
+поэтому дополнительно ничего делать не нужно.
+
+Если же вы клонировали сервисы другим способом или с опцией `--no-hook`, то перед запуском сервиса следует выполнить следующие команды:
+
 ```bash
 elc set-hooks .git_hooks
-elc composer install
-elc npm install
+
+elc compose run --rm -u$(id -u):$(id -g) --entrypoint="" app npm install
+elc compose run --rm -u$(id -u):$(id -g) --entrypoint="" app composer install
+
 cp .env.example .env
-elc php artisan key:generate
+elc compose run --rm -u$(id -u):$(id -g) --entrypoint="" app php artisan key:generate
+
 elc restart
 ```
 Бэк-сервисы работают на laravel octane, и в режиме разработки запускаются через chokidar - программу, которая следит за изменением кода и перезапускает сервер.

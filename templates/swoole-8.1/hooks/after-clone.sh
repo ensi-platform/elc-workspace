@@ -12,6 +12,3 @@ elc compose run --rm -u$(id -u):$(id -g) --entrypoint="" app composer install
 echo -e "\e[34mPreconfigure\e[0m"
 cp .env.example .env
 elc compose run --rm -u$(id -u):$(id -g) --entrypoint="" app php artisan key:generate
-
-echo -e "\e[34mRestart\e[0m"
-elc restart
