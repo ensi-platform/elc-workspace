@@ -29,47 +29,22 @@ APPS_ROOT: /home/<user>/work/ensi/apps
 PACKAGES_PATH: /home/<user>/work/ensi/packages
 ```
 
-Клонируем сервисы Ensi в папку apps в соответствии с вот этой структурой:
-```bash
-apps
-├── admin-gui
-│   ├── admin-gui-backend
-│   └── admin-gui-frontend
-├── catalog
-│   ├── feed
-│   ├── offers
-│   └── pim
-├── cms
-│   └── cms
-├── communication
-│   ├── communication
-│   └── internal-messenger
-├── customers
-│   ├── crm
-│   ├── customer-auth
-│   └── customers
-├── logistic
-│   ├── geo
-│   └── logistic
-├── marketing
-│   └── marketing
-├── orders
-│   ├── baskets
-│   ├── oms
-│   └── packing
-├── reviews
-│   └── reviews
-└── units
-    ├── admin-auth
-    ├── bu
-    └── seller-auth
+Далее необходимо клонировать код сервисов и библиотек.
+Сделать это можно так же через elc.
+
+Можно выборочно клонировать нужные вам сервисы по имени
 ```
-Конечные папки в этом дереве, такие как feed или oms, должны быть корнями репозиториев соответсвующих сервисов.  
-Вы можете разложить сервисы Ensi и подругому, однако тогда вам будет необходимо задать переменные в файле env.yaml.
+elc clone catalog-pim orders-oms
+```
+либо клонировать сразу все репозитории по тэгу
+```
+elc clone --tag=app   # клоинровать только сервисы
+elc clone --tag=lib   # клонировать только пакеты
+elc clone --tag=code  # клонировать все репозитории с кодом: и сервисы и пакеты
+```
 
-Дополнительно вы можете клонировать пакеты в папку `packages` рядом с папкой воркспейса. Для пакетов не задана особая структура расположения, однако они должны находиться внутри дирректории `packages`.
-
-Вы не обязаны клонировать все сервисы сразу, однако некоторые сервисы могут зависеть друг от друга и запуск их в неподходящем режиме может завершиться ошибкой.
+Клонировать пакеты необходимо только если вы собираетесь их редактировать.
+По умолчанию, пакеты устанавливаются вместе с остальными зависимостями сервиса через composer.
 
 ## Миграция с ELC bash edition
 
@@ -110,13 +85,20 @@ sudo mv ensi-old/apps/oms ensi/apps/orders/oms
 
 ## Подготовка сервисов к запуску
 
-В каждом сервисе необходимо выполнить
+При клонировании сервиса командой `elc clone` автоматически выполняется скрипт, который устанавливает зависимости сервиса,
+поэтому дополнительно ничего делать не нужно.
+
+Если же вы клонировали сервисы другим способом или с опцией `--no-hook`, то перед запуском сервиса следует выполнить следующие команды:
+
 ```bash
 elc set-hooks .git_hooks
-elc composer install
-elc npm install
+
+elc compose run --rm -u$(id -u):$(id -g) --entrypoint="" app npm install
+elc compose run --rm -u$(id -u):$(id -g) --entrypoint="" app composer install
+
 cp .env.example .env
-elc php artisan key:generate
+elc compose run --rm -u$(id -u):$(id -g) --entrypoint="" app php artisan key:generate
+
 elc restart
 ```
 Бэк-сервисы работают на laravel octane, и в режиме разработки запускаются через chokidar - программу, которая следит за изменением кода и перезапускает сервер.
