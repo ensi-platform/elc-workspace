@@ -1,0 +1,29 @@
+services:
+  app:
+    image: $WORKSPACE_NAME/$APP_IMAGE
+    build:
+      context: $SVC_PATH
+    hostname: "$APP_NAME.$BASE_DOMAIN"
+    environment:
+      API_HOST: $API_HOST
+      VIRTUAL_HOST: "$APP_NAME.$BASE_DOMAIN"
+      VIRTUAL_PORT: "80"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - dev
+  nginx:
+    image: $NGINX_IMAGE
+    environment:
+      BACKEND_DOMAIN: $API_HOST
+    volumes:
+      - "$SVC_PATH:/var/www"
+      - "$TPL_PATH/nginx/default.conf.template:/etc/nginx/templates/default.conf.template"
+    network_mode: "service:app"
+    depends_on:
+      - app
+
+networks:
+  dev:
+    external: true
+    name: $NETWORK

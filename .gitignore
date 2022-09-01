@@ -19,6 +19,9 @@
 !services/proxy/**
 !services/redis/**
 
+!templates/nodejs/
+!templates/nodejs/**
+
 !templates/fpm-8.1/
 !templates/fpm-8.1/**
 
