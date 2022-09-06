@@ -2,6 +2,7 @@
 
 read -r -d '' dbs << EOF
 admin_gui_backend
+catalog_catalog_cache
 catalog_offers
 catalog_pim
 cms_cms

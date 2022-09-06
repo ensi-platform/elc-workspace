@@ -120,6 +120,17 @@ services:
       database: [default, hook]
       proxy:    [default]
 
+  catalog-catalog-cache:
+    extends: swoole-8.1
+    path: ${APPS_ROOT}/${SVC_CATALOG_CATALOG_CACHE_PATH:-catalog/catalog-cache}
+    repository: git@gitlab.com:greensight/ensi/catalog/catalog-cache.git
+    tags:
+      - code
+      - app
+    dependencies:
+      database: [default, hook]
+      proxy:    [default]
+
   catalog-feed:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_CATALOG_FEED_PATH:-catalog/feed}
@@ -378,6 +389,14 @@ modules:
     hosted_in: cms-cms
     exec_path: ${PACKAGES_PATH}/marketing-client-php
     repository: git@gitlab.com:greensight/ensi/marketing/clients/marketing-client-php.git
+    tags:
+      - code
+      - lib
+  catalog-cache-client-php:
+    path: ${PACKAGES_PATH}/catalog-cache-client-php
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/catalog-cache-client-php
+    repository: git@gitlab.com:greensight/ensi/catalog/clients/catalog-cache-client-php.git
     tags:
       - code
       - lib

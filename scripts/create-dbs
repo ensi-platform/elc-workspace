@@ -1,6 +1,7 @@
 #!/bin/bash
 
 read -r -d '' dbs << EOF
+catalog_catalog_cache
 catalog_offers
 catalog_pim
 catalog_feed
