@@ -3,6 +3,7 @@
 read -r -d '' dbs << EOF
 admin_gui_backend
 catalog_catalog_cache
+catalog_feed
 catalog_offers
 catalog_pim
 cms_cms
@@ -10,7 +11,6 @@ communication
 customers_crm
 customers_customer_auth
 customers_customers
-feeds_feed
 internal_messenger
 logistic_calculator
 logistic_geo
