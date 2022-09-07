@@ -39,17 +39,23 @@ services:
     path: ${WORKSPACE_PATH}/services/proxy
     variables:
       APP_IMAGE: dockerhub.greensight.ru/services/nginx/nginx-proxy:latest #original docker image - jwilder/nginx-proxy:latest
+    tags:
+      - system
 
   database:
     path: ${WORKSPACE_PATH}/services/database
     variables:
       APP_IMAGE: dockerhub.greensight.ru/services/postgis:13-3.1 #original docker image - postgis/postgis:13-3.1
+    tags:
+      - system
 
   es:
     path: ${WORKSPACE_PATH}/services/es
     variables:
       NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
       IMGPROXY_IMAGE: dockerhub.greensight.ru/services/imgproxy:latest #original docker image - darthsim/imgproxy:latest
+    tags:
+      - system
     dependencies:
       proxy: [default]
 
@@ -59,11 +65,15 @@ services:
     variables:
       APP_IMAGE: dockerhub.greensight.ru/services/elasticsearch:7.9.2 #original docker image - docker.elastic.co/elasticsearch/elasticsearch:7.9.2
       JAVA_MEMORY: '512m'
+    tags:
+      - system
   kibana:
     path: ${WORKSPACE_PATH}/services/elastic
     compose_file: ${SVC_PATH}/kibana.yml
     variables:
       APP_IMAGE: dockerhub.greensight.ru/services/kibana:7.9.2 #original docker image - docker.elastic.co/kibana/kibana:7.9.2
+    tags:
+      - system
     dependencies:
       proxy: [default]
       elastic: [default]
@@ -73,11 +83,15 @@ services:
     compose_file: ${SVC_PATH}/redis.yml
     variables:
       APP_IMAGE: redis:6
+    tags:
+      - system
   redis-ui:
     path: ${WORKSPACE_PATH}/services/redis
     compose_file: ${SVC_PATH}/redis-ui.yml
     variables:
       APP_IMAGE: dockerhub.greensight.ru/services/redis-commander:latest #original docker image - rediscommander/redis-commander:latest
+    tags:
+      - system
     dependencies:
       proxy: [default]
       redis: [default]
@@ -88,11 +102,15 @@ services:
     variables:
       KAFKA_IMAGE: dockerhub.greensight.ru/services/kafka:latest #original docker image - wurstmeister/kafka
       ZOOKEEPER_IMAGE: dockerhub.greensight.ru/services/zookeeper:latest #original docker image -wurstmeister/zookeeper
+    tags:
+      - system
   kafka-ui:
     path: ${WORKSPACE_PATH}/services/kafka
     compose_file: ${SVC_PATH}/kafka-ui.yml
     variables:
       APP_IMAGE: dockerhub.greensight.ru/services/kafka-ui:latest #original docker image - provectuslabs/kafka-ui
+    tags:
+      - system
     dependencies:
       proxy: [default]
       kafka: [default]
@@ -103,6 +121,10 @@ services:
     extends: swoole-8.1
     path: ${APPS_ROOT}/${SVC_ADMIN_GUI_BACKEND_PATH:-admin-gui/admin-gui-backend}
     repository: git@gitlab.com:greensight/ensi/admin-gui/admin-gui-backend.git
+    tags:
+      - code
+      - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -127,8 +149,10 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
+      elastic:  [default]
       proxy:    [default]
 
   catalog-feed:
@@ -138,6 +162,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -149,6 +174,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -160,6 +186,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -171,6 +198,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -182,6 +210,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -193,6 +222,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -204,6 +234,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -215,6 +246,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -226,6 +258,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -237,6 +270,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -248,6 +282,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -259,6 +294,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -270,6 +306,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -281,6 +318,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -292,6 +330,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -303,6 +342,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -314,6 +354,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -325,6 +366,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -336,6 +378,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
@@ -347,6 +390,7 @@ services:
     tags:
       - code
       - app
+      - backend
     dependencies:
       database: [default, hook]
       proxy:    [default]
