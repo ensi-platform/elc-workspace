@@ -31,5 +31,5 @@ SHELL=/bin/bash ./node_modules/.bin/chokidar -d 1000 -t 1000 -s --initial --sile
         "routes" \
         "composer.lock" \
         ".env" \
-        -c "php artisan octane:stop &> /dev/null; php artisan octane:start --host=0.0.0.0 --workers=2 --task-workers=2"
+        -c "php artisan octane:stop &> /dev/null; sleep 1; php artisan octane:start --host=0.0.0.0 --workers=2 --task-workers=2"
 sleep 3600
