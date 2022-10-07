@@ -7,7 +7,7 @@ HISTFILESIZE=20000
 shopt -s checkwinsize
 umask 0000
 
-export PATH=${PATH}:/tmp/composer/vendor/bin
+export PATH=${PATH}:/tmp/home/composer/vendor/bin
 
 for f in $HOME/*.sh; do
     if [ -e "$f" ]; then
