@@ -21,15 +21,4 @@ if [ ! -L /var/www/public/storage ]; then
     fi
 fi
 
-SHELL=/bin/bash ./node_modules/.bin/chokidar -d 1000 -t 1000 -s --initial --silent \
-        "app" \
-        "bootstrap" \
-        "config" \
-        "database" \
-        "public/**/*.php" \
-        "resources/**/*.php" \
-        "routes" \
-        "composer.lock" \
-        ".env" \
-        -c "php artisan octane:stop &> /dev/null; sleep 1; php artisan octane:start --host=0.0.0.0 --workers=2 --task-workers=2"
-sleep 3600
+OCTANE_SHOW_FATAL_ERROR=true php artisan octane:swoole --watch --host=0.0.0.0 --workers=1 --task-workers=1 || sleep 3600
