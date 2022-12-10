@@ -1,5 +1,5 @@
 name: ensi
-elc_min_version: 0.2.2
+elc_min_version: 0.2.6
 variables:
   DEFAULT_PACKAGES_PATH: ${WORKSPACE_PATH}/../packages
   DEFAULT_APPS_ROOT: ${WORKSPACE_PATH}/../apps
@@ -128,6 +128,8 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: admin_gui_backend
 
   admin-gui-frontend:
     extends: nodejs
@@ -154,6 +156,8 @@ services:
       database: [default, hook]
       elastic:  [default]
       proxy:    [default]
+    variables:
+      DB_NAME: catalog_catalog_cache
 
   catalog-feed:
     extends: swoole-8.1
@@ -166,6 +170,8 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: catalog_feed
 
   catalog-offers:
     extends: swoole-8.1
@@ -178,6 +184,8 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: catalog_offers
 
   catalog-pim:
     extends: swoole-8.1
@@ -190,6 +198,8 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: catalog_pim
 
   cms-cms:
     extends: swoole-8.1
@@ -202,6 +212,8 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: cms_cms
 
   communication-communication:
     extends: swoole-8.1
@@ -214,6 +226,8 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: communication_communication_manager
 
   communication-im:
     extends: swoole-8.1
@@ -226,6 +240,8 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: communication_internal_messenger
 
   customers-crm:
     extends: swoole-8.1
@@ -238,6 +254,8 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: customers_crm
 
   customers-customers:
     extends: swoole-8.1
@@ -250,6 +268,8 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: customers_customers
 
   customers-customer-auth:
     extends: swoole-8.1
@@ -262,6 +282,8 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: customers_customer_auth
 
   customer-api-gateway:
     extends: swoole-8.1
@@ -286,6 +308,8 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: logistic_geo
 
   logistic-logistic:
     extends: swoole-8.1
@@ -298,6 +322,9 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: logistic_calculator
+      DB_EXT: postgis
 
   marketing-marketing:
     extends: swoole-8.1
@@ -310,6 +337,8 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: marketing_marketing
 
   orders-baskets:
     extends: swoole-8.1
@@ -322,6 +351,8 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: orders_baskets
 
   orders-oms:
     extends: swoole-8.1
@@ -334,6 +365,8 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: orders_oms
 
   orders-packing:
     extends: swoole-8.1
@@ -346,6 +379,8 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: orders_packing
 
   reviews-reviews:
     extends: swoole-8.1
@@ -358,6 +393,8 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: reviews_reviews
 
   units-admin-auth:
     extends: swoole-8.1
@@ -370,6 +407,8 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: units_admin_auth
 
   units-bu:
     extends: swoole-8.1
@@ -382,6 +421,8 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: units_bu
 
   units-seller-auth:
     extends: swoole-8.1
@@ -394,6 +435,8 @@ services:
     dependencies:
       database: [default, hook]
       proxy:    [default]
+    variables:
+      DB_NAME: units_seller_auth
 
 modules:
   communication-manager-client-php:

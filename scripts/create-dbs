@@ -1,38 +1,21 @@
 #!/bin/bash
 
-read -r -d '' dbs << EOF
-catalog_catalog_cache
-catalog_offers
-catalog_pim
-catalog_feed
-cms_cms
-communication_communication_manager
-communication_internal_messenger
-customers_crm
-customers_customer_auth
-customers_customers
-logistic_calculator
-logistic_geo
-marketing_marketing
-orders_oms
-orders_baskets
-orders_packing
-reviews_reviews
-units_admin_auth
-units_bu
-units_seller_auth
-EOF
+services=$(elc list --tag=app)
 
-for db in $dbs; do
-    printf "Create database %-50s" "${db}"
-    elc --svc=database psql -Upostgres -c "create database ${db};" &> /dev/null
-    elc --svc=database psql -Upostgres -c "create database ${db}_test;" &> /dev/null
-    echo "    [OK]"
+for service in $services; do
+    db=$(elc vars $service | sed -En 's/DB_NAME=(.*)/\1/p')
+    if [ "$db" != "" ]; then
+        printf "Create database %-50s" "${db}"
+        elc --svc=database psql -Upostgres -c "create database ${db};" &> /dev/null
+        elc --svc=database psql -Upostgres -c "create database ${db}_test;" &> /dev/null
+        echo "    [OK]"
+
+        extensions=$(elc vars $service | sed -En 's/DB_EXT=(.*)/\1/p' | tr ',' '\n')
+        for extension in $extensions; do
+            printf "Create extension ${extension} for %-37s" "${db}"
+            elc --svc=database psql -Upostgres ${db} -c "create extension if not exists ${extension};" &> /dev/null
+            elc --svc=database psql -Upostgres ${db}_test -c "create extension if not exists ${extension};" &> /dev/null
+            echo "    [OK]"
+        done
+    fi
 done
-
-echo ""
-
-printf "Create extension postgis for %-37s" "logistic"
-elc --svc=database psql -Upostgres logistic -c "create extension if not exists postgis;" &> /dev/null
-elc --svc=database psql -Upostgres logistic_test -c "create extension if not exists postgis;" &> /dev/null
-echo "    [OK]"
