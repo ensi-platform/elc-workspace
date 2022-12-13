@@ -133,3 +133,10 @@ elc start
 У вас произойдет сборка и запуск сервиса Frontend Админки. 
 
 По умолчанию адрес сервиса: http://admin-gui-frontend.ensi.127.0.0.1.nip.io
+
+## Скрипты
+
+```bash
+./scripts/save-schemas
+```
+Генерирует для каждого сервиса полную openapi схему в формате yaml и сохраняет в папку `workspace/schemas`. Полезно для дальнейшего импорта в Postman.

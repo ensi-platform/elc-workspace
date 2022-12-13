@@ -1,0 +1,22 @@
+#!/bin/bash
+
+services=$(elc list --tag=app)
+
+schemas_path=$(elc vars | sed -En 's/WORKSPACE_PATH=(.*)/\1/p')/schemas
+mkdir -p ${schemas_path}
+
+for service in $services; do
+    printf "Generate yaml schema for %-30s" "${service}"
+
+    folder=$(elc vars $service | sed -En 's/SVC_PATH=(.*)/\1/p')
+    if [ -f "$folder"/vendor/bin/php-openapi ]; then
+        cd $folder && 
+        elc compose run --rm -u$(id -u):$(id -g) --entrypoint="" app ./vendor/bin/php-openapi inline public/api-docs/v1/index.yaml public/api-docs/v1/temp_schema.yaml -s &> /dev/null &&
+        mv ${folder}/public/api-docs/v1/temp_schema.yaml ${schemas_path}/${service}.yaml
+        echo "    [OK]" 
+    else
+        echo "    [FAIL]"
+    fi
+done
+
+printf "Schemas saved in %s" "${schemas_path}"
