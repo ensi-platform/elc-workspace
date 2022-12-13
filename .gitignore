@@ -2,3 +2,4 @@
 env.yaml
 home/*
 !home/.bashrc
+schemas/*
