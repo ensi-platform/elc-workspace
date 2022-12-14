@@ -3,3 +3,4 @@ env.yaml
 home/*
 !home/.bashrc
 schemas/*
+.DS_Store
