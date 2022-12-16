@@ -1,6 +1,14 @@
 .idea
+.DS_Store
+
 env.yaml
+
 home/*
 !home/.bashrc
-schemas/*
-.DS_Store
+
+schemas
+apps
+other
+packages
+
+/*.sh
