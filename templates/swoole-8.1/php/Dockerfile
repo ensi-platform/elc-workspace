@@ -7,7 +7,7 @@ RUN apk add --virtual .build-deps --no-cache --update autoconf file g++ gcc libc
     docker-php-ext-enable xdebug && \
     apk del .build-deps
 
-COPY --from=composer /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
 
 RUN apk add npm git openjdk8-jre-base bash htop vim mc
 
