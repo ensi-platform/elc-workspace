@@ -143,7 +143,7 @@ elc start
 
 ## Сервисы 
 
-- ### Запуск/остановка Базу Данных
+- ### Запуск/остановка DB
 ```
 elc start database
 elc strop database
