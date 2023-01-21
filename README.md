@@ -140,3 +140,62 @@ elc start
 ./scripts/save-schemas
 ```
 Генерирует для каждого сервиса полную openapi схему в формате yaml и сохраняет в папку `workspace/schemas`. Полезно для дальнейшего импорта в Postman.
+
+## Сервисы 
+
+- ### Запуск/остановка Базу Данных
+```
+elc start database
+elc strop database
+``` 
+
+- ### Запуск/остановка Elasticsearch
+```
+elc start elastic
+elc strop elastic
+``` 
+- ### Запуск/остановка Kibana
+```
+elc start kibana
+elc strop kibana
+``` 
+Web Kibana: http://kibana.ensi.127.0.0.1.nip.io
+
+- ### Запуск/остановка Ensi-disk
+```
+elc start es
+elc strop es
+``` 
+Web Ensi-disk: http://es.ensi.127.0.0.1.nip.io
+
+- ### Запуск/остановка Kafka
+```
+elc start kafka
+elc strop kafka
+``` 
+
+- ### Запуск/остановка Kafka-Ui
+```
+elc start kafka-ui
+elc strop kafka-ui
+``` 
+Web Kafka-Ui: http://kafka-ui.ensi.127.0.0.1.nip.io
+
+- ### Запуск/остановка Maildev
+```
+elc start maildev
+elc strop maildev
+``` 
+Web Maildev: http://maildev.ensi.127.0.0.1.nip.io
+
+- ### Запуск/остановка Redis
+```
+elc start redis
+elc strop redis
+``` 
+- ### Запуск/остановка Redis-Ui
+```
+elc start redis-ui
+elc strop redis-ui
+``` 
+Web Redis-Ui: http://redis-ui.ensi.127.0.0.1.nip.io
