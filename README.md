@@ -143,59 +143,22 @@ elc start
 
 ## Сервисы 
 
-- ### Запуск/остановка DB
+### Запуск/остановка сервисов инфраструктуры
 ```
-elc start database
-elc strop database
+elc start <name_service>
+elc stop <name_service>
 ``` 
 
-- ### Запуск/остановка Elasticsearch
-```
-elc start elastic
-elc strop elastic
-``` 
-- ### Запуск/остановка Kibana
-```
-elc start kibana
-elc strop kibana
-``` 
-Web Kibana: http://kibana.ensi.127.0.0.1.nip.io
+| Имя сервиса  | Адрес | Описание |
+| ------------- | ------------- | ------------- |
+| database  | http://database.ensi.127.0.0.1.nip.io:5432  | Postgres 13  |
+| elastic  | http://elastic.ensi.127.0.0.1.nip.io:9200  | Elasticsearch 7.9.2  |
+| kibana  | http://kibana.ensi.127.0.0.1.nip.io  | Kibana 7.9.2  |
+| es | http://es.ensi.127.0.0.1.nip.io  | Nginx 1.19  |
+| kafka  | http://kafka.ensi.127.0.0.1.nip.io:9092  | Kafka  |
+| kafka-ui  | http://kafka-ui.ensi.127.0.0.1.nip.io  | Kafka-UI  |
+| maildev  | http://maildev.ensi.127.0.0.1.nip.io  | Maildev 2.0.5  |
+| redis  | http://redis.ensi.127.0.0.1.nip.io:6379  | Redis 6  |
+| redis-ui  | http://redis-ui.ensi.127.0.0.1.nip.io  | Redis-UI  |
 
-- ### Запуск/остановка Ensi-disk
-```
-elc start es
-elc strop es
-``` 
-Web Ensi-disk: http://es.ensi.127.0.0.1.nip.io
 
-- ### Запуск/остановка Kafka
-```
-elc start kafka
-elc strop kafka
-``` 
-
-- ### Запуск/остановка Kafka-Ui
-```
-elc start kafka-ui
-elc strop kafka-ui
-``` 
-Web Kafka-Ui: http://kafka-ui.ensi.127.0.0.1.nip.io
-
-- ### Запуск/остановка Maildev
-```
-elc start maildev
-elc strop maildev
-``` 
-Web Maildev: http://maildev.ensi.127.0.0.1.nip.io
-
-- ### Запуск/остановка Redis
-```
-elc start redis
-elc strop redis
-``` 
-- ### Запуск/остановка Redis-Ui
-```
-elc start redis-ui
-elc strop redis-ui
-``` 
-Web Redis-Ui: http://redis-ui.ensi.127.0.0.1.nip.io
