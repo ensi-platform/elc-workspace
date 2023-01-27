@@ -152,7 +152,7 @@ elc stop <name_service>
 | Имя сервиса  | Адрес | Описание |
 | ------------- | ------------- | ------------- |
 | database  | database.ensi.127.0.0.1.nip.io:5432  | Postgres 13  |
-| elastic  | elastic.ensi.127.0.0.1.nip.io:9200  | Elasticsearch 7.9.2  |
+| elastic  | http://elastic.ensi.127.0.0.1.nip.io:9200  | Elasticsearch 7.9.2  |
 | kibana  | http://kibana.ensi.127.0.0.1.nip.io  | Kibana 7.9.2  |
 | es | http://es.ensi.127.0.0.1.nip.io  | Nginx 1.19  |
 | kafka  | kafka.ensi.127.0.0.1.nip.io:9092  | Kafka  |
