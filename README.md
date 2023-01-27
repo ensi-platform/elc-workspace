@@ -151,14 +151,14 @@ elc stop <name_service>
 
 | Имя сервиса  | Адрес | Описание |
 | ------------- | ------------- | ------------- |
-| database  | http://database.ensi.127.0.0.1.nip.io:5432  | Postgres 13  |
-| elastic  | http://elastic.ensi.127.0.0.1.nip.io:9200  | Elasticsearch 7.9.2  |
+| database  | database.ensi.127.0.0.1.nip.io:5432  | Postgres 13  |
+| elastic  | elastic.ensi.127.0.0.1.nip.io:9200  | Elasticsearch 7.9.2  |
 | kibana  | http://kibana.ensi.127.0.0.1.nip.io  | Kibana 7.9.2  |
 | es | http://es.ensi.127.0.0.1.nip.io  | Nginx 1.19  |
-| kafka  | http://kafka.ensi.127.0.0.1.nip.io:9092  | Kafka  |
+| kafka  | kafka.ensi.127.0.0.1.nip.io:9092  | Kafka  |
 | kafka-ui  | http://kafka-ui.ensi.127.0.0.1.nip.io  | Kafka-UI  |
 | maildev  | http://maildev.ensi.127.0.0.1.nip.io  | Maildev 2.0.5  |
-| redis  | http://redis.ensi.127.0.0.1.nip.io:6379  | Redis 6  |
+| redis  | redis.ensi.127.0.0.1.nip.io:6379  | Redis 6  |
 | redis-ui  | http://redis-ui.ensi.127.0.0.1.nip.io  | Redis-UI  |
 
 
