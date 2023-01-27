@@ -115,6 +115,17 @@ services:
       proxy: [default]
       kafka: [default]
 
+  maildev:
+    path: ${WORKSPACE_PATH}/services/maildev
+    variables:
+      APP_IMAGE: dockerhub.greensight.ru/maildev/maildev:2.0.5
+      SMTP_USER: maildev
+      SMTP_PASSWORD: maildev
+    tags:
+      - system
+    dependencies:
+      proxy: [default]
+
   # ======= APPS
 
   admin-gui-backend:
