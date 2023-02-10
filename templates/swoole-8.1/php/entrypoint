@@ -21,4 +21,15 @@ if [ ! -L /var/www/public/storage ]; then
     fi
 fi
 
-OCTANE_SHOW_FATAL_ERROR=true php artisan octane:swoole --watch --host=0.0.0.0 --workers=1 --task-workers=1 || sleep 3600
+if [ "$DEBUG_HOST" != "" ]; then
+    echo "" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    # echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    echo "xdebug.mode=develop,debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    echo "xdebug.client_host=${DEBUG_HOST}" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    echo "xdebug.client_port=${DEBUG_PORT}" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    echo "swoole.enable_coroutine=Off" >> /usr/local/etc/php/conf.d/docker-php-ext-swoole.ini
+    export PHP_IDE_CONFIG="serverName=local"
+fi
+
+export OCTANE_SHOW_FATAL_ERROR=true
+php artisan octane:swoole --watch --host=0.0.0.0 --workers=1 --task-workers=1 || sleep 3600
