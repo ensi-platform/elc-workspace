@@ -1,0 +1,57 @@
+x-default-topic-template: &default_topic_template
+  partitions: 1
+  replicas: 1
+  config:
+    - name: retention.ms
+      value: 60480000 # 7 days
+    - name: retention.bytes
+      value: 1073741824 # 1 Gb
+
+topics:
+  - <<: *default_topic_template
+    name: local.customer-auth.fact.generated-password-token.1
+  - <<: *default_topic_template
+    name: local.customers.fact.changes-email.1
+  - <<: *default_topic_template
+    name: local.admin-auth.fact.generated-password-token.1
+  - <<: *default_topic_template
+    name: local.customer-auth.fact.user-updated.1
+  - <<: *default_topic_template
+    name: local.customers.fact.customer-updated.1
+  - <<: *default_topic_template
+    name: local.customer-auth.fact.password-reset.1
+  - <<: *default_topic_template
+    name: local.customer-auth.fact.password-reset-success.1
+  - <<: *default_topic_template
+    name: local.catalog.fact.offers.1
+  - <<: *default_topic_template
+    name: local.catalog.fact.brands.1
+  - <<: *default_topic_template
+    name: local.catalog.fact.categories.1
+  - <<: *default_topic_template
+    name: local.catalog.fact.property-directory-values.1
+  - <<: *default_topic_template
+    name: local.catalog.fact.properties.1
+  - <<: *default_topic_template
+    name: local.catalog.fact.published-images.1
+  - <<: *default_topic_template
+    name: local.catalog.fact.published-products.1
+  - <<: *default_topic_template
+    name: local.catalog.fact.published-property-values.1
+  - <<: *default_topic_template
+    name: local.catalog.fact.actual-category-properties.1
+  - <<: *default_topic_template
+    name: local.catalog.fact.product-groups.1
+  - <<: *default_topic_template
+    name: local.catalog.fact.product-group-products.1
+  - <<: *default_topic_template
+    name: local.orders.fact.orders.1
+  - <<: *default_topic_template
+    name: local.units.fact.store-pickup-times.1
+  - <<: *default_topic_template
+    name: local.oms.deliveries.1
+  - <<: *default_topic_template
+    name: local.logistic.fact.delivery-orders.1
+  - <<: *default_topic_template
+    name: local.orders.fact.orders.1
+
