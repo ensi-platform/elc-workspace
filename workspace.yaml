@@ -27,7 +27,7 @@ templates:
     path: ${WORKSPACE_PATH}/templates/swoole-8.1
     after_clone_hook: ${TPL_PATH}/hooks/after-clone.sh
     variables:
-      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.1-master-2022may13-swoole
+      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.1-master-2023mar4-1-swoole
       APP_IMAGE: swoole-8.1:latest
       NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
 
@@ -38,7 +38,7 @@ services:
   proxy:
     path: ${WORKSPACE_PATH}/services/proxy
     variables:
-      APP_IMAGE: dockerhub.greensight.ru/services/nginx/nginx-proxy:latest #original docker image - jwilder/nginx-proxy:latest
+      APP_IMAGE: dockerhub.greensight.ru/services/nginx-proxy:1.2.2-alpine
     tags:
       - system
 
