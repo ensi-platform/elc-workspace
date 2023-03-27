@@ -1,0 +1,7 @@
+#!/bin/bash
+
+docker run --rm -it -v $PWD:/wd -w /wd --network=host dockerhub.greensight.ru/services/kafka-tools:v1 /app/main.py \
+  --bootstrap-server=127.0.0.1:9092 \
+  --kafka-login=ensi --kafka-password=secret \
+  --topics-file=scripts/kafka-topics.yaml \
+  --topic-name=all
