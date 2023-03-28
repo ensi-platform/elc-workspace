@@ -4,6 +4,7 @@ services:
     networks:
       - dev
     volumes:
+      - "${SVC_PATH}/conf/proxy.conf:/etc/nginx/conf.d/proxy.conf:ro"
       - "/var/run/docker.sock:/tmp/docker.sock:ro"
     ports:
       - "80:80"
