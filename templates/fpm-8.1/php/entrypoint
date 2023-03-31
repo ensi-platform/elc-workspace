@@ -4,13 +4,6 @@ umask 0000
 
 cd /var/www
 
-if [ -e "container.env" ]; then
-    variables=$(sed "s/^#.*//" "container.env")
-    if [ "$variables" != "" ]; then
-        export $variables
-    fi
-fi
-
 if [ ! -e /var/www/storage/ensi ] && [ -e /var/data ]; then
     ln -s /var/data /var/www/storage/ensi
 fi
@@ -21,8 +14,10 @@ if [ ! -L /var/www/public/storage ]; then
     fi
 fi
 
+DEBUG_HOST=$(sed "s/^#.*//" .env | grep -oE 'DEBUG_HOST=.*' | sed -r 's/DEBUG_HOST=(.*)/\1/')
+DEBUG_PORT=$(sed "s/^#.*//" .env | grep -oE 'DEBUG_PORT=.*' | sed -r 's/DEBUG_PORT=(.*)/\1/')
+
 if [ "${DEBUG_HOST}" != "" ]; then
-    export PHP_IDE_CONFIG=serverName=local
     {
         echo ""
         echo "xdebug.mode=develop,debug"
@@ -34,4 +29,5 @@ if [ "${DEBUG_HOST}" != "" ]; then
     sed 's/request_terminate_timeout =.*/request_terminate_timeout = 3600s/' -i /usr/local/etc/php-fpm.d/www.conf
 fi
 
+PHP_IDE_CONFIG=serverName=local \
 php-fpm -R
