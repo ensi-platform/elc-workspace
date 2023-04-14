@@ -151,7 +151,6 @@ services:
       - code
       - app
     dependencies:
-      database: [default, hook]
       proxy:    [default]
 
   catalog-catalog-cache:
