@@ -137,7 +137,6 @@ services:
       - app
       - backend
     dependencies:
-      database: [default, hook]
       proxy:    [default]
     variables:
       DB_NAME: admin_gui_backend
@@ -305,7 +304,6 @@ services:
       - app
       - backend
     dependencies:
-      database: [default, hook]
       proxy:    [default]
 
   logistic-geo:
