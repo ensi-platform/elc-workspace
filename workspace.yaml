@@ -138,8 +138,6 @@ services:
       - backend
     dependencies:
       proxy:    [default]
-    variables:
-      DB_NAME: admin_gui_backend
 
   admin-gui-frontend:
     extends: nodejs
