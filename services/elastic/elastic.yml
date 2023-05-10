@@ -9,6 +9,7 @@ services:
       - "bootstrap.memory_lock=true"
       - "read_only_allow_delete=false"
       - "ES_JAVA_OPTS=-Xms${JAVA_MEMORY} -Xmx${JAVA_MEMORY}"
+      - "xpack.security.enabled=false"
     ulimits:
       memlock:
         soft: -1
