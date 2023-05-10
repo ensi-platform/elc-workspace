@@ -63,7 +63,7 @@ services:
     path: ${WORKSPACE_PATH}/services/elastic
     compose_file: ${SVC_PATH}/elastic.yml
     variables:
-      APP_IMAGE: dockerhub.greensight.ru/services/elasticsearch:8.7.0 #original docker image - docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+      APP_IMAGE: dockerhub.greensight.ru/services/elasticsearch:8.7.0 #original docker image - docker.elastic.co/elasticsearch/elasticsearch:8.7.0
       JAVA_MEMORY: '512m'
     tags:
       - system
