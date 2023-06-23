@@ -573,3 +573,11 @@ modules:
     tags:
       - code
       - lib
+  feed-client-php:
+    path: ${PACKAGES_PATH}/feed-client-php
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/feed-client-php
+    repository: git@gitlab.com:greensight/ensi/catalog/clients/feed-client-php.git
+    tags:
+      - code
+      - lib
