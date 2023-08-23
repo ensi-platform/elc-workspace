@@ -33,14 +33,14 @@ templates:
   fpm-8.2:
     path: ${WORKSPACE_PATH}/templates/fpm-8.2
     variables:
-      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.2-task-109866-2023july21-1
+      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.2-master-2023aug21-1
       APP_IMAGE: fpm-8.2:latest
       NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
   swoole-8.2:
     path: ${WORKSPACE_PATH}/templates/swoole-8.2
     after_clone_hook: ${TPL_PATH}/hooks/after-clone.sh
     variables:
-      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.2-task-109866-2023july21-1-swoole
+      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.2-master-2023aug21-1-swoole
       APP_IMAGE: swoole-8.2:latest
       NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
 
