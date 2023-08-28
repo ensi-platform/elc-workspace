@@ -30,6 +30,20 @@ templates:
       BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.1-master-2023mar4-1-swoole
       APP_IMAGE: swoole-8.1:latest
       NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
+  fpm-8.2:
+    path: ${WORKSPACE_PATH}/templates/fpm-8.2
+    variables:
+      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.2-master-2023aug21-1
+      APP_IMAGE: fpm-8.2:latest
+      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
+  swoole-8.2:
+    path: ${WORKSPACE_PATH}/templates/swoole-8.2
+    after_clone_hook: ${TPL_PATH}/hooks/after-clone.sh
+    variables:
+      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.2-master-2023aug21-1-swoole
+      APP_IMAGE: swoole-8.2:latest
+      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
+
 
 services:
 
@@ -570,6 +584,14 @@ modules:
     hosted_in: cms-cms
     exec_path: ${PACKAGES_PATH}/crm-client-php
     repository: git@gitlab.com:greensight/ensi/customers/clients/crm-client-php.git
+    tags:
+      - code
+      - lib
+  feed-client-php:
+    path: ${PACKAGES_PATH}/feed-client-php
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/feed-client-php
+    repository: git@gitlab.com:greensight/ensi/catalog/clients/feed-client-php.git
     tags:
       - code
       - lib

@@ -162,3 +162,60 @@ elc stop <name_service>
 | redis-ui  | http://redis-ui.ensi.127.0.0.1.nip.io  | Redis-UI  |
 
 
+## Переключение между версиями php
+
+Чтобы переключить сервис на другую версию php, вам нужно зайти в файл workspace.yaml в диррективе templates: вы можете посмотреть все версии php/node которые вы можете использовать. 
+
+```
+templates:
+  nodejs:
+    path: ${WORKSPACE_PATH}/templates/nodejs
+    variables:
+      APP_IMAGE: nodejs:latest
+      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine
+  fpm-8.1:
+    path: ${WORKSPACE_PATH}/templates/fpm-8.1
+    variables:
+      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.1-master-2022may13
+      APP_IMAGE: fpm-8.1:latest
+      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
+  swoole-8.1:
+    path: ${WORKSPACE_PATH}/templates/swoole-8.1
+    after_clone_hook: ${TPL_PATH}/hooks/after-clone.sh
+    variables:
+      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.1-master-2023mar4-1-swoole
+      APP_IMAGE: swoole-8.1:latest
+      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
+  fpm-8.2:
+    path: ${WORKSPACE_PATH}/templates/fpm-8.2
+    variables:
+      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.2-task-109866-2023july21-1
+      APP_IMAGE: fpm-8.2:latest
+      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
+  swoole-8.2:
+    path: ${WORKSPACE_PATH}/templates/swoole-8.2
+    after_clone_hook: ${TPL_PATH}/hooks/after-clone.sh
+    variables:
+      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.2-task-109866-2023july21-1-swoole
+      APP_IMAGE: swoole-8.2:latest
+      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
+
+```
+
+Изменив значение extends со swoole-8.1 на swoole-8.2 то данный сервис будет использовать php 8.2 
+
+```
+  cms-cms:
+    extends: swoole-8.1
+    path: ${APPS_ROOT}/${SVC_CMS_CMS_PATH:-cms/cms}
+    repository: git@gitlab.com:greensight/ensi/cms/cms.git
+    tags:
+      - code
+      - app
+      - backend
+    dependencies:
+      database: [default, hook]
+      proxy:    [default]
+    variables:
+      DB_NAME: cms_cms
+```
