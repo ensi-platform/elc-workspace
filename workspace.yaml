@@ -573,3 +573,11 @@ modules:
     tags:
       - code
       - lib
+  cloud-api-sdk-php:
+    path: ${PACKAGES_PATH}/${PKG_CLOUD_API_SDK_PHP_PATH:-cloud-api-sdk-php}
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/${PKG_CLOUD_API_SDK_PHP_PATH:-cloud-api-sdk-php}
+    repository: git@gitlab.com:greensight/ensi/catalog/clients/cloud-api-sdk-php.git
+    tags:
+      - code
+      - lib
