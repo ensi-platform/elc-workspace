@@ -237,7 +237,7 @@ services:
       DB_NAME: cms_cms
 
   communication-communication:
-    extends: swoole-8.1
+    extends: swoole-8.2
     path: ${APPS_ROOT}/${SVC_COMMUNICATION_COMMUNICATION_PATH:-communication/communication}
     repository: git@gitlab.com:greensight/ensi/communication/communication.git
     tags:
