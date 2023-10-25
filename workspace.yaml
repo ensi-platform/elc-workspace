@@ -153,6 +153,17 @@ services:
     dependencies:
       proxy:    [default]
 
+  seller-gui-backend:
+    extends: swoole-8.2
+    path: ${APPS_ROOT}/${SVC_SELLER_GUI_BACKEND_PATH:-seller-gui/seller-gui-backend}
+    repository: git@gitlab.com:greensight/ensi/seller-gui/seller-gui-backend
+    tags:
+      - code
+      - app
+      - backend
+    dependencies:
+      proxy:    [default]
+
   admin-gui-frontend:
     extends: nodejs
     path: ${APPS_ROOT}/${SVC_ADMIN_GUI_FRONTEND_PATH:-admin-gui/admin-gui-frontend}
@@ -480,6 +491,14 @@ modules:
     hosted_in: cms-cms
     exec_path: ${PACKAGES_PATH}/admin-auth-client-php
     repository: git@gitlab.com:greensight/ensi/units/clients/admin-auth-client-php.git
+    tags:
+      - code
+      - lib
+  seller-auth-client-php:
+    path: ${PACKAGES_PATH}/seller-auth-client-php
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/seller-auth-client-php
+    repository: git@gitlab.com:greensight/ensi/units/clients/seller-auth-client-php.git
     tags:
       - code
       - lib
