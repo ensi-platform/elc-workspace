@@ -5,7 +5,8 @@ services:
       context: $SVC_PATH
     hostname: "$APP_NAME.$BASE_DOMAIN"
     environment:
-      API_HOST: $API_HOST
+      ADMIN_GUI_BACKEND_SERVICE_HOST: $API_HOST
+      ADMIN_GUI_FRONTEND_SERVICE_HOST: "http://$APP_NAME.$BASE_DOMAIN"
       VIRTUAL_HOST: "$APP_NAME.$BASE_DOMAIN"
       VIRTUAL_PORT: "80"
     extra_hosts:
