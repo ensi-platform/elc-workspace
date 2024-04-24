@@ -206,7 +206,7 @@ templates:
 
 ```
   cms-cms:
-    extends: swoole-8.1
+    extends: swoole-8.2
     path: ${APPS_ROOT}/${SVC_CMS_CMS_PATH:-cms/cms}
     repository: git@gitlab.com:greensight/ensi/cms/cms.git
     tags:
