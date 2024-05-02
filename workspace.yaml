@@ -354,7 +354,7 @@ services:
       database: [default, hook]
       proxy:    [default]
     variables:
-      DB_NAME: logistic_calculator
+      DB_NAME: logistic_logistic
       DB_EXT: postgis
 
   marketing-marketing:
