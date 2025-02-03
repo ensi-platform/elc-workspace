@@ -1,0 +1,34 @@
+#!/bin/bash
+
+umask 0000
+
+cd /var/www
+
+if [ ! -e /var/www/storage/ensi ] && [ -e /var/data ]; then
+    ln -s /var/data /var/www/storage/ensi
+fi
+
+if [ ! -L /var/www/public/storage ]; then
+    if [ -e vendor ]; then
+        php artisan storage:link
+    fi
+fi
+
+DEBUG_HOST=$(sed "s/^#.*//" .env | grep -oE 'DEBUG_HOST=.*' | sed -r 's/DEBUG_HOST=(.*)/\1/')
+DEBUG_PORT=$(sed "s/^#.*//" .env | grep -oE 'DEBUG_PORT=.*' | sed -r 's/DEBUG_PORT=(.*)/\1/')
+
+if [ "${DEBUG_HOST}" != "" ]; then
+    {
+        echo ""
+        echo "xdebug.mode=develop,debug"
+        echo "xdebug.client_host=${DEBUG_HOST}"
+        echo "xdebug.client_port=${DEBUG_PORT}"
+        echo "max_execution_time=3600"
+        echo ""
+    } >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    sed 's/request_terminate_timeout =.*/request_terminate_timeout = 3600s/' -i /usr/local/etc/php-fpm.d/www.conf
+fi
+
+PHP_IDE_CONFIG=serverName=local \
+OCTANE_SHOW_FATAL_ERROR=true \
+php artisan octane:swoole --watch --host=0.0.0.0 --workers=1 --task-workers=1 || sleep 3600
