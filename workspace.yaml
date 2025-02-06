@@ -54,7 +54,7 @@ templates:
     path: ${WORKSPACE_PATH}/templates/swoole-8.4
     after_clone_hook: ${TPL_PATH}/hooks/after-clone.sh
     variables:
-      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.4-master-2025-02-10-12
+      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.4-master-2025-02-06-13
       APP_IMAGE: swoole-8.4:latest
       NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
 
