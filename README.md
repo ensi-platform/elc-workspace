@@ -219,3 +219,17 @@ templates:
     variables:
       DB_NAME: cms_cms
 ```
+
+## Upgrade postgres from 13 to 17 version
+
+Just run script `migrate-db-from-13-to-17.sh` from workspace folder
+```
+./scripts/migrate-db-from-13-to-15.sh
+```
+it can prompt a sudo password, because it works with postgres data dir.
+
+Script makes two backups:
+- `backup.sql` in current folder
+- `data-13-backup` in database service folder
+
+Keep this files until you prove that database works correct.
