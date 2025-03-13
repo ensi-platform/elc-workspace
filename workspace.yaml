@@ -43,6 +43,20 @@ templates:
       BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.2-master-2023aug21-1-swoole
       APP_IMAGE: swoole-8.2:latest
       NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
+  swoole-8.3:
+    path: ${WORKSPACE_PATH}/templates/swoole-8.3
+    after_clone_hook: ${TPL_PATH}/hooks/after-clone.sh
+    variables:
+      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.3-master-2025-02-03-11
+      APP_IMAGE: swoole-8.3:latest
+      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
+  swoole-8.4:
+    path: ${WORKSPACE_PATH}/templates/swoole-8.4
+    after_clone_hook: ${TPL_PATH}/hooks/after-clone.sh
+    variables:
+      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.4-master-2025-03-11-14
+      APP_IMAGE: swoole-8.4:latest
+      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
 
 
 services:
@@ -143,7 +157,7 @@ services:
   # ======= APPS
 
   admin-gui-backend:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_ADMIN_GUI_BACKEND_PATH:-admin-gui/admin-gui-backend}
     repository: git@gitlab.com:greensight/ensi/admin-gui/admin-gui-backend.git
     tags:
@@ -154,7 +168,7 @@ services:
       proxy:    [default]
 
   seller-gui-backend:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_SELLER_GUI_BACKEND_PATH:-seller-gui/seller-gui-backend}
     repository: git@gitlab.com:greensight/ensi/seller-gui/seller-gui-backend
     tags:
@@ -177,7 +191,7 @@ services:
       proxy:    [default]
 
   catalog-catalog-cache:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_CATALOG_CATALOG_CACHE_PATH:-catalog/catalog-cache}
     repository: git@gitlab.com:greensight/ensi/catalog/catalog-cache.git
     tags:
@@ -192,7 +206,7 @@ services:
       DB_NAME: catalog_catalog_cache
 
   catalog-feed:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_CATALOG_FEED_PATH:-catalog/feed}
     repository: git@gitlab.com:greensight/ensi/catalog/feed.git
     tags:
@@ -206,7 +220,7 @@ services:
       DB_NAME: catalog_feed
 
   catalog-offers:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_CATALOG_OFFERS_PATH:-catalog/offers}
     repository: git@gitlab.com:greensight/ensi/catalog/offers.git
     tags:
@@ -220,7 +234,7 @@ services:
       DB_NAME: catalog_offers
 
   catalog-pim:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_CATALOG_PIM_PATH:-catalog/pim}
     repository: git@gitlab.com:greensight/ensi/catalog/pim.git
     tags:
@@ -234,7 +248,7 @@ services:
       DB_NAME: catalog_pim
 
   cms-cms:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_CMS_CMS_PATH:-cms/cms}
     repository: git@gitlab.com:greensight/ensi/cms/cms.git
     tags:
@@ -248,7 +262,7 @@ services:
       DB_NAME: cms_cms
 
   communication-communication:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_COMMUNICATION_COMMUNICATION_PATH:-communication/communication}
     repository: git@gitlab.com:greensight/ensi/communication/communication.git
     tags:
@@ -262,7 +276,7 @@ services:
       DB_NAME: communication_communication_manager
 
   communication-im:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_COMMUNICATION_INTERNAL_MESSENGER_PATH:-communication/internal-messenger}
     repository: git@gitlab.com:greensight/ensi/communication/internal-messenger.git
     tags:
@@ -276,7 +290,7 @@ services:
       DB_NAME: communication_internal_messenger
 
   customers-crm:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_CUSTOMERS_CRM_PATH:-customers/crm}
     repository: git@gitlab.com:greensight/ensi/customers/crm.git
     tags:
@@ -290,7 +304,7 @@ services:
       DB_NAME: customers_crm
 
   customers-customers:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_CUSTOMERS_CUSTOMERS_PATH:-customers/customers}
     repository: git@gitlab.com:greensight/ensi/customers/customers.git
     tags:
@@ -304,7 +318,7 @@ services:
       DB_NAME: customers_customers
 
   customers-customer-auth:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_CUSTOMERS_CUSTOMER_AUTH_PATH:-customers/customer-auth}
     repository: git@gitlab.com:greensight/ensi/customers/customer-auth.git
     tags:
@@ -318,7 +332,7 @@ services:
       DB_NAME: customers_customer_auth
 
   customer-api-gateway:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_CUSTOMER_GUI_CUSTOMER_API_GATEWAY_PATH:-customer-gui/customer-api-gateway}
     repository: git@gitlab.com:greensight/ensi/customer-gui/customer-api-gateway.git
     tags:
@@ -329,7 +343,7 @@ services:
       proxy:    [default]
 
   logistic-geo:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_LOGISTIC_GEO_PATH:-logistic/geo}
     repository: git@gitlab.com:greensight/ensi/logistic/geo.git
     tags:
@@ -343,7 +357,7 @@ services:
       DB_NAME: logistic_geo
 
   logistic-logistic:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_LOGISTIC_LOGISTIC_PATH:-logistic/logistic}
     repository: git@gitlab.com:greensight/ensi/logistic/logistic.git
     tags:
@@ -358,7 +372,7 @@ services:
       DB_EXT: postgis
 
   marketing-marketing:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_MARKETING_MARKETING_PATH:-marketing/marketing}
     repository: git@gitlab.com:greensight/ensi/marketing/marketing.git
     tags:
@@ -372,7 +386,7 @@ services:
       DB_NAME: marketing_marketing
 
   orders-baskets:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_ORDERS_BASKETS_PATH:-orders/baskets}
     repository: git@gitlab.com:greensight/ensi/orders/baskets.git
     tags:
@@ -386,7 +400,7 @@ services:
       DB_NAME: orders_baskets
 
   orders-oms:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_ORDERS_OMS_PATH:-orders/oms}
     repository: git@gitlab.com:greensight/ensi/orders/oms.git
     tags:
@@ -400,7 +414,7 @@ services:
       DB_NAME: orders_oms
 
   orders-packing:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_ORDERS_PACKING_PATH:-orders/packing}
     repository: git@gitlab.com:greensight/ensi/orders/packing.git
     tags:
@@ -414,7 +428,7 @@ services:
       DB_NAME: orders_packing
 
   reviews-reviews:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_REVIEWS_REVIEWS_PATH:-reviews/reviews}
     repository: git@gitlab.com:greensight/ensi/reviews/reviews.git
     tags:
@@ -428,7 +442,7 @@ services:
       DB_NAME: reviews_reviews
 
   units-admin-auth:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_UNITS_ADMIN_AUTH_PATH:-units/admin-auth}
     repository: git@gitlab.com:greensight/ensi/units/admin-auth.git
     tags:
@@ -442,7 +456,7 @@ services:
       DB_NAME: units_admin_auth
 
   units-bu:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_UNITS_BU_PATH:-units/bu}
     repository: git@gitlab.com:greensight/ensi/units/bu.git
     tags:
@@ -456,7 +470,7 @@ services:
       DB_NAME: units_bu
 
   units-seller-auth:
-    extends: swoole-8.2
+    extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_UNITS_SELLER_AUTH_PATH:-units/seller-auth}
     repository: git@gitlab.com:greensight/ensi/units/seller-auth.git
     tags:
