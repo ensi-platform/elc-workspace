@@ -16,33 +16,20 @@ templates:
     path: ${WORKSPACE_PATH}/templates/nodejs
     variables:
       APP_IMAGE: nodejs:latest
-      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine
-  fpm-8.1:
-    path: ${WORKSPACE_PATH}/templates/fpm-8.1
-    variables:
-      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.1-master-2022may13
-      APP_IMAGE: fpm-8.1:latest
-      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
-  swoole-8.1:
-    path: ${WORKSPACE_PATH}/templates/swoole-8.1
-    after_clone_hook: ${TPL_PATH}/hooks/after-clone.sh
-    variables:
-      BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.1-master-2023mar4-1-swoole
-      APP_IMAGE: swoole-8.1:latest
-      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
+      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.29-alpine3.22
   fpm-8.2:
     path: ${WORKSPACE_PATH}/templates/fpm-8.2
     variables:
       BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.2-master-2023aug21-1
       APP_IMAGE: fpm-8.2:latest
-      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
+      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.29-alpine3.22
   swoole-8.2:
     path: ${WORKSPACE_PATH}/templates/swoole-8.2
     after_clone_hook: ${TPL_PATH}/hooks/after-clone.sh
     variables:
       BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.2-master-2023aug21-1-swoole
       APP_IMAGE: swoole-8.2:latest
-      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
+      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.29-alpine3.22
 
 
 services:
@@ -66,8 +53,8 @@ services:
   es:
     path: ${WORKSPACE_PATH}/services/es
     variables:
-      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.19-alpine  #original docker image - nginx:1.19-alpine
-      IMGPROXY_IMAGE: dockerhub.greensight.ru/services/imgproxy:latest #original docker image - darthsim/imgproxy:latest
+      NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.29-alpine3.22  #original docker image - nginx:1.29-alpine3.22
+      IMGPROXY_IMAGE: dockerhub.greensight.ru/services/imgproxy:v3.30.0 #original docker image - darthsim/imgproxy:v3.30.0
     tags:
       - system
     dependencies:
@@ -132,7 +119,7 @@ services:
   maildev:
     path: ${WORKSPACE_PATH}/services/maildev
     variables:
-      APP_IMAGE: dockerhub.greensight.ru/services/maildev:2.1.0
+      APP_IMAGE: dockerhub.greensight.ru/services/maildev:2.2.1
       SMTP_USER: maildev
       SMTP_PASSWORD: maildev
     tags:
