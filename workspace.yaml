@@ -101,15 +101,14 @@ services:
     path: ${WORKSPACE_PATH}/services/kafka
     compose_file: ${SVC_PATH}/kafka.yml
     variables:
-      KAFKA_IMAGE: dockerhub.greensight.ru/services/kafka:latest #original docker image - wurstmeister/kafka
-      ZOOKEEPER_IMAGE: dockerhub.greensight.ru/services/zookeeper:latest #original docker image -wurstmeister/zookeeper
+      KAFKA_IMAGE: dockerhub.greensight.ru/services/kafka:4.1.0 #original docker image - apache/kafka:4.1.0
     tags:
       - system
   kafka-ui:
     path: ${WORKSPACE_PATH}/services/kafka
     compose_file: ${SVC_PATH}/kafka-ui.yml
     variables:
-      APP_IMAGE: dockerhub.greensight.ru/services/kafka-ui:latest #original docker image - provectuslabs/kafka-ui
+      APP_IMAGE: dockerhub.greensight.ru/services/kafka-ui:1.3.0 #original docker image - ghcr.io/kafbat/kafka-ui:1.3.0
     tags:
       - system
     dependencies:
