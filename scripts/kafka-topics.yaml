@@ -54,4 +54,5 @@ topics:
     name: local.logistic.fact.delivery-orders.1
   - <<: *default_topic_template
     name: local.orders.fact.orders.1
-
+  - <<: *default_topic_template
+    name: local.catalog.fact.generated-ai-product.1
