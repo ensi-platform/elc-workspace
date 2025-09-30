@@ -4,37 +4,29 @@ services:
     hostname: "$APP_NAME.$BASE_DOMAIN"
     networks:
       - dev
-    expose:
-      - "9093"
     environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: CLIENTS://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093,BROKER://0.0.0.0:9094
+      KAFKA_ADVERTISED_LISTENERS: CLIENTS://$APP_NAME.$BASE_DOMAIN:9092,BROKER://:9094
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_INTER_BROKER_LISTENER_NAME: BROKER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,BROKER:PLAINTEXT,CLIENTS:SASL_PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_NUM_PARTITIONS: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka-conf/kafka_server_jaas.conf"
       KAFKA_SECURITY_PROTOCOL: SASL_PLAINTEXT
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:SASL_PLAINTEXT
       KAFKA_SASL_ENABLED_MECHANISMS: PLAIN
       KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
-      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
-      KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
-      KAFKA_ADVERTISED_LISTENERS: INSIDE://$APP_NAME.$BASE_DOMAIN:9093,OUTSIDE://$APP_NAME.$BASE_DOMAIN:9092
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper.$APP_NAME.$BASE_DOMAIN:2181
-      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka-conf/kafka_server_jaas.conf"
     volumes:
-      - "${SVC_PATH}/data:/etc/kafka"
       - "${SVC_PATH}/kafka_server_jaas.conf:/etc/kafka-conf/kafka_server_jaas.conf"
     ports:
       - "9092:9092"
-    depends_on:
-      - zookeeper
-  zookeeper:
-    image: $ZOOKEEPER_IMAGE
-    hostname: "zookeeper.$APP_NAME.$BASE_DOMAIN"
-    ulimits:
-      nofile:
-        soft: 65536
-        hard: 65536
-    expose:
-      - "2181"
-    networks:
-      - dev
 
 networks:
   dev:
