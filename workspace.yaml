@@ -83,7 +83,7 @@ services:
     path: ${WORKSPACE_PATH}/services/redis
     compose_file: ${SVC_PATH}/redis.yml
     variables:
-      APP_IMAGE: redis:6
+      APP_IMAGE: dockerhub.greensight.ru/services/redis:8.2.1-alpine
     tags:
       - system
   redis-ui:
