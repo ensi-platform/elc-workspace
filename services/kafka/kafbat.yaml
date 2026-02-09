@@ -1,0 +1,61 @@
+# ======================================================
+# Kafka Clusters Configuration
+# Define all Kafka cluster-specific settings and related integrations.
+# ======================================================
+kafka:
+  clusters:
+    - name: local
+      bootstrap-servers: kafka.ensi.127.0.0.1.nip.io:9092
+
+      ssl:
+        verify-ssl: false
+
+      # Global Kafka client properties
+      properties:
+        "security.protocol": SASL_PLAINTEXT
+        "sasl.mechanism": PLAIN
+        "sasl.jaas.config": org.apache.kafka.common.security.plain.PlainLoginModule required username="client" password="secret";
+
+      # Kafka Consumer configuration overrides
+      consumer-properties:
+        "max.partition.fetch.bytes": 1048576
+
+      # Kafka Producer configuration overrides
+      producer-properties:
+        "enable.idempotence": false
+
+      read-only: false
+      polling-throttle-rate: 0
+
+  # Prefix to identify internal Kafka topics used by system tools
+  internalTopicPrefix: "__"
+
+  # Timeout for admin Kafka operations (in milliseconds)
+  admin-client-timeout: 30000
+
+  # Polling behavior for consumer previews in the UI
+  polling:
+    poll-timeout-ms: 1000  # How long to wait for new records (ms)
+    max-page-size: 500  # Maximum number of records per poll
+    default-page-size: 100  # Default number of records per poll
+
+
+# ======================================================
+# WebClient Settings
+# Configuration for HTTP clients used by the app.
+# ======================================================
+webclient:
+  response-timeout-ms: 20000  # Timeout for all outgoing HTTP requests
+  max-in-memory-buffer-size: 20MB  # Maximum buffer size for handling responses
+
+
+# ======================================================
+# Application Logging Configuration
+# Configure logging levels for specific packages.
+# ======================================================
+logging:
+  level:
+    root: INFO
+    io.kafbat.ui: DEBUG
+    reactor.netty.http.server.AccessLog: INFO
+    org.hibernate.validator: WARN
