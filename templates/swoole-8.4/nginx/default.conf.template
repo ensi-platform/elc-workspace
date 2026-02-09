@@ -1,0 +1,64 @@
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+}
+
+server {
+    listen 80;
+    server_name _ default;
+    root /var/www/public;
+    resolver 127.0.0.11;
+
+    index index.php;
+    charset utf-8;
+
+    client_max_body_size 500M;
+    large_client_header_buffers 4 16k;
+    client_body_buffer_size 32K;
+    client_header_buffer_size 2k;
+    http2_max_header_size 512k;
+    http2_max_field_size 256k;
+    disable_symlinks off;
+
+    location /index.php {
+        try_files /not_exists @octane;
+    }
+
+    location / {
+        try_files $uri $uri/ @octane;
+    }
+
+    error_page 404 /index.php;
+
+    location /api-docs {
+        # kill cache
+        add_header Last-Modified $date_gmt;
+        add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+        if_modified_since off;
+        expires off;
+        etag off;
+    }
+
+    location @octane {
+        set $suffix "";
+
+        if ($uri = /index.php) {
+            set $suffix ?$query_string;
+        }
+
+        proxy_http_version 1.1;
+        proxy_set_header Host $http_host;
+        proxy_set_header Scheme $scheme;
+        proxy_set_header SERVER_PORT $server_port;
+        proxy_set_header REMOTE_ADDR $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+
+        proxy_connect_timeout        3600s;
+        proxy_send_timeout           3600s;
+        proxy_read_timeout           3600s;
+
+        proxy_pass http://127.0.0.1:8000$suffix;
+    }
+}
