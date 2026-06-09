@@ -516,6 +516,14 @@ modules:
     tags:
       - code
       - lib
+  action-audit-event-producer:
+    path: ${PACKAGES_PATH}/action-audit-event-producer
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/action-audit-event-producer
+    repository: git@gitlab.com:greensight/ensi/units/clients/action-audit-client-php.git
+    tags:
+      - code
+      - lib
   seller-auth-client-php:
     path: ${PACKAGES_PATH}/seller-auth-client-php
     hosted_in: cms-cms
