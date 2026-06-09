@@ -427,6 +427,20 @@ services:
     variables:
       DB_NAME: reviews_reviews
 
+  units-action-audit:
+    extends: swoole-8.4
+    path: ${APPS_ROOT}/${SVC_UNITS_ACTION_AUDIT_PATH:-units/action-audit}
+    repository: git@gitlab.com:greensight/ensi/units/action-audit.git
+    tags:
+      - code
+      - app
+      - backend
+    dependencies:
+      database: [default, hook]
+      proxy:    [default]
+    variables:
+      DB_NAME: units_action_audit
+
   units-admin-auth:
     extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_UNITS_ADMIN_AUTH_PATH:-units/admin-auth}
@@ -491,6 +505,22 @@ modules:
     hosted_in: cms-cms
     exec_path: ${PACKAGES_PATH}/admin-auth-client-php
     repository: git@gitlab.com:greensight/ensi/units/clients/admin-auth-client-php.git
+    tags:
+      - code
+      - lib
+  action-audit-client-php:
+    path: ${PACKAGES_PATH}/action-audit-client-php
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/action-audit-client-php
+    repository: git@gitlab.com:greensight/ensi/units/clients/action-audit-client-php.git
+    tags:
+      - code
+      - lib
+  action-audit-event-producer:
+    path: ${PACKAGES_PATH}/action-audit-event-producer
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/action-audit-event-producer
+    repository: git@gitlab.com:greensight/ensi/units/clients/action-audit-client-php.git
     tags:
       - code
       - lib
