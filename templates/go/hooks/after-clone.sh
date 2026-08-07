@@ -7,6 +7,7 @@ elc set-hooks .git_hooks
 
 echo -e "\e[34mInstall dependencies\e[0m"
 elc run go install github.com/air-verse/air@latest
+elc run go install github.com/go-delve/delve/cmd/dlv@latest
 elc run go mod tidy
 
 echo -e "\e[34mPreconfigure\e[0m"

@@ -10,6 +10,8 @@ variables:
   USER_ID: ${USER_ID:-1000}
   BASE_DOMAIN: ensi.127.0.0.1.nip.io
   HOME_PATH: ${WORKSPACE_PATH}/home
+  DEFAULT_HOST_GOMODCACHE: ${HOME_PATH}/go/cache
+  HOST_GOMODCACHE: ${HOST_GOMODCACHE:-$DEFAULT_HOST_GOMODCACHE}
 
 templates:
   nodejs:
@@ -50,7 +52,6 @@ templates:
     variables:
       BASE_IMAGE: golang:1.26.5-alpine3.24
       APP_IMAGE: golang:1.26.5-alpine3.24
-
 
 services:
 

@@ -23,11 +23,13 @@ cd ~/work/ensi/workspace
 ./scripts/create-dbs
 ```
 
-Копируем файл env.example.yaml, даём ему имя env.yaml, обязательно задаём переменные
+Копируем файл env.example.yaml, даём ему имя env.yaml, обязательно задаём переменные.
 ```
 APPS_ROOT: /home/<user>/work/ensi/apps
 PACKAGES_PATH: /home/<user>/work/ensi/packages
+HOST_GOMODCACHE: /home/<user>/go/pkg/mod
 ```
+Значение для `HOST_GOMODCACHE` лучше выяснить выполнив `go env | grep GOMODCACHE` в терминале вашей IDE.  
 
 Далее необходимо клонировать код сервисов и библиотек.
 Сделать это можно так же через elc.
