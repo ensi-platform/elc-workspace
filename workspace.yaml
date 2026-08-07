@@ -10,6 +10,8 @@ variables:
   USER_ID: ${USER_ID:-1000}
   BASE_DOMAIN: ensi.127.0.0.1.nip.io
   HOME_PATH: ${WORKSPACE_PATH}/home
+  DEFAULT_HOST_GOMODCACHE: ${HOME_PATH}/go/cache
+  HOST_GOMODCACHE: ${HOST_GOMODCACHE:-$DEFAULT_HOST_GOMODCACHE}
 
 templates:
   nodejs:
@@ -44,7 +46,12 @@ templates:
       BASE_IMAGE: dockerhub.greensight.ru/ensi-tech/php-base-image:8.4-master-2026-02-05-3
       APP_IMAGE: swoole-8.4:latest
       NGINX_IMAGE: dockerhub.greensight.ru/services/nginx:1.29-alpine3.22
-
+  go:
+    path: ${WORKSPACE_PATH}/templates/go
+    after_clone_hook: ${TPL_PATH}/hooks/after-clone.sh
+    variables:
+      BASE_IMAGE: golang:1.26.5-alpine3.24
+      APP_IMAGE: golang:1.26.5-alpine3.24
 
 services:
 
@@ -328,6 +335,17 @@ services:
     dependencies:
       proxy:    [default]
 
+  customer-api-gateway-go:
+    extends: go
+    path: ${APPS_ROOT}/${SVC_CUSTOMER_GUI_CUSTOMER_API_GATEWAY_PATH:-customer-gui/customer-api-gateway-go}
+    repository: git@gitlab.com:greensight/ensi/customer-gui/customer-api-gateway-go.git
+    tags:
+      - code
+      - app
+      - backend
+    dependencies:
+      proxy:    [default]
+
   logistic-geo:
     extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_LOGISTIC_GEO_PATH:-logistic/geo}
@@ -492,6 +510,14 @@ modules:
     tags:
       - code
       - lib
+  communication-manager-client-go:
+    path: ${PACKAGES_PATH}/communication-manager-client-go
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/communication-manager-client-go
+    repository: git@gitlab.com:greensight/ensi/communication/clients/communication-manager-client-go.git
+    tags:
+      - code
+      - lib
   internal-messenger-client-php:
     path: ${PACKAGES_PATH}/internal-messenger-client-php
     hosted_in: cms-cms
@@ -540,11 +566,27 @@ modules:
     tags:
       - code
       - lib
+  bu-client-go:
+    path: ${PACKAGES_PATH}/bu-client-go
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/bu-client-go
+    repository: git@gitlab.com:greensight/ensi/units/clients/bu-client-go.git
+    tags:
+      - code
+      - lib
   marketing-client-php:
     path: ${PACKAGES_PATH}/marketing-client-php
     hosted_in: cms-cms
     exec_path: ${PACKAGES_PATH}/marketing-client-php
     repository: git@gitlab.com:greensight/ensi/marketing/clients/marketing-client-php.git
+    tags:
+      - code
+      - lib
+  marketing-client-go:
+    path: ${PACKAGES_PATH}/marketing-client-go
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/marketing-client-go
+    repository: git@gitlab.com:greensight/ensi/marketing/clients/marketing-client-go.git
     tags:
       - code
       - lib
@@ -556,11 +598,27 @@ modules:
     tags:
       - code
       - lib
+  catalog-cache-client-go:
+    path: ${PACKAGES_PATH}/catalog-cache-client-go
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/catalog-cache-client-go
+    repository: git@gitlab.com:greensight/ensi/catalog/clients/catalog-cache-client-go.git
+    tags:
+      - code
+      - lib
   pim-client-php:
     path: ${PACKAGES_PATH}/pim-client-php
     hosted_in: cms-cms
     exec_path: ${PACKAGES_PATH}/pim-client-php
     repository: git@gitlab.com:greensight/ensi/catalog/clients/pim-client-php.git
+    tags:
+      - code
+      - lib
+  pim-client-go:
+    path: ${PACKAGES_PATH}/pim-client-go
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/pim-client-go
+    repository: git@gitlab.com:greensight/ensi/catalog/clients/pim-client-go.git
     tags:
       - code
       - lib
@@ -572,11 +630,27 @@ modules:
     tags:
       - code
       - lib
+  offers-client-go:
+    path: ${PACKAGES_PATH}/offers-client-go
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/offers-client-go
+    repository: git@gitlab.com:greensight/ensi/catalog/clients/offers-client-go.git
+    tags:
+      - code
+      - lib
   oms-client-php:
     path: ${PACKAGES_PATH}/oms-client-php
     hosted_in: cms-cms
     exec_path: ${PACKAGES_PATH}/oms-client-php
     repository: git@gitlab.com:greensight/ensi/orders/clients/oms-client-php.git
+    tags:
+      - code
+      - lib
+  oms-client-go:
+    path: ${PACKAGES_PATH}/oms-client-go
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/oms-client-go
+    repository: git@gitlab.com:greensight/ensi/orders/clients/oms-client-go.git
     tags:
       - code
       - lib
@@ -596,11 +670,27 @@ modules:
     tags:
       - code
       - lib
+  baskets-client-go:
+    path: ${PACKAGES_PATH}/baskets-client-go
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/baskets-client-go
+    repository: git@gitlab.com:greensight/ensi/orders/clients/baskets-client-go.git
+    tags:
+      - code
+      - lib
   logistic-client-php:
     path: ${PACKAGES_PATH}/logistic-client-php
     hosted_in: cms-cms
     exec_path: ${PACKAGES_PATH}/logistic-client-php
     repository: git@gitlab.com:greensight/ensi/logistic/clients/logistic-client-php.git
+    tags:
+      - code
+      - lib
+  logistic-client-go:
+    path: ${PACKAGES_PATH}/logistic-client-go
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/logistic-client-go
+    repository: git@gitlab.com:greensight/ensi/logistic/clients/logistic-client-go.git
     tags:
       - code
       - lib
@@ -612,11 +702,27 @@ modules:
     tags:
       - code
       - lib
+  cms-client-go:
+    path: ${PACKAGES_PATH}/cms-client-go
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/cms-client-go
+    repository: git@gitlab.com:greensight/ensi/cms/clients/cms-client-go.git
+    tags:
+      - code
+      - lib
   customer-auth-client-php:
     path: ${PACKAGES_PATH}/customer-auth-client-php
     hosted_in: cms-cms
     exec_path: ${PACKAGES_PATH}/customer-auth-client-php
     repository: git@gitlab.com:greensight/ensi/customers/clients/customer-auth-client-php.git
+    tags:
+      - code
+      - lib
+  customer-auth-client-go:
+    path: ${PACKAGES_PATH}/customer-auth-client-go
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/customer-auth-client-go
+    repository: git@gitlab.com:greensight/ensi/customers/clients/customer-auth-client-go.git
     tags:
       - code
       - lib
@@ -628,6 +734,14 @@ modules:
     tags:
       - code
       - lib
+  customers-client-go:
+    path: ${PACKAGES_PATH}/customers-client-go
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/customers-client-go
+    repository: git@gitlab.com:greensight/ensi/customers/clients/customers-client-go.git
+    tags:
+      - code
+      - lib
   crm-client-php:
     path: ${PACKAGES_PATH}/crm-client-php
     hosted_in: cms-cms
@@ -636,11 +750,43 @@ modules:
     tags:
       - code
       - lib
+  crm-client-go:
+    path: ${PACKAGES_PATH}/crm-client-go
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/crm-client-go
+    repository: git@gitlab.com:greensight/ensi/customers/clients/crm-client-go.git
+    tags:
+      - code
+      - lib
   feed-client-php:
     path: ${PACKAGES_PATH}/feed-client-php
     hosted_in: cms-cms
     exec_path: ${PACKAGES_PATH}/feed-client-php
     repository: git@gitlab.com:greensight/ensi/catalog/clients/feed-client-php.git
+    tags:
+      - code
+      - lib
+  feed-client-go:
+    path: ${PACKAGES_PATH}/feed-client-go
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/feed-client-go
+    repository: git@gitlab.com:greensight/ensi/catalog/clients/feed-client-go.git
+    tags:
+      - code
+      - lib
+  reviews-client-php:
+    path: ${PACKAGES_PATH}/reviews-client-php
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/reviews-client-php
+    repository: git@gitlab.com:greensight/ensi/reviews/clients/reviews-client-php.git
+    tags:
+      - code
+      - lib
+  reviews-client-go:
+    path: ${PACKAGES_PATH}/reviews-client-go
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/reviews-client-go
+    repository: git@gitlab.com:greensight/ensi/reviews/clients/reviews-client-go.git
     tags:
       - code
       - lib
