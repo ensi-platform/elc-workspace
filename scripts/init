@@ -1,7 +1,7 @@
 #!/bin/bash
 
-mkdir -p home/{.config,.npm,composer,composer_cache}
-chmod -R 777 home/{.config,.npm,composer,composer_cache}
+mkdir -p home/{.config,.npm,composer,composer_cache,go/bin}
+chmod -R 777 home/{.config,.npm,composer,composer_cache,go/bin}
 
 mkdir -p services/{database,elastic,kafka}/data
 mkdir -p services/es/{data,cache}
