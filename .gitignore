@@ -12,3 +12,4 @@ other
 packages
 
 /*.sh
+!activate.sh
