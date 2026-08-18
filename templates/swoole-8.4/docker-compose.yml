@@ -17,6 +17,7 @@ services:
       COMPOSER_HOME: /tmp/home/composer
       COMPOSER_CACHE_DIR: /tmp/home/composer_cache
     working_dir: /var/www
+    stop_grace_period: 0s
     entrypoint:
       - "/usr/local/bin/entrypoint"
     volumes:
