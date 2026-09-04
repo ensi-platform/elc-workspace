@@ -189,6 +189,17 @@ services:
     dependencies:
       proxy:    [default]
 
+  catalog-catalog-cache-go:
+    extends: go
+    path: ${APPS_ROOT}/${SVC_CATALOG_CATALOG_CACHE_GO_PATH:-catalog/catalog-cache-go}
+    repository: git@gitlab.com:greensight/ensi/catalog/catalog-cache-go.git
+    tags:
+      - code
+      - app
+      - backend
+    dependencies:
+      proxy: [ default ]
+
   catalog-catalog-cache:
     extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_CATALOG_CATALOG_CACHE_PATH:-catalog/catalog-cache}
