@@ -16,6 +16,7 @@ services:
       HOME: /tmp/home
       GOMODCACHE: /tmp/home/go/cache
       GOBIN: /tmp/home/go/bin
+      GOMAXPROCS: 1
     working_dir: /var/www
     volumes:
       - "$SVC_PATH:/var/www"
