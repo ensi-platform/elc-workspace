@@ -1,8 +1,17 @@
 ARG BASE_IMAGE
+ARG MISE_VERSION=2026.9.12
+
+FROM ghcr.io/jdx/mise:${MISE_VERSION} AS mise
 
 FROM $BASE_IMAGE
 
-RUN apk add npm git bash htop vim mc less
+COPY --from=mise /usr/local/bin/mise /usr/local/bin/mise
+
+RUN apk add --no-cache npm git bash ca-certificates gcc musl-dev htop vim mc less
+
+ENV MISE_DATA_DIR=/tmp/home/.mise \
+    MISE_CACHE_DIR=/tmp/home/.cache/mise \
+    PATH="/tmp/home/go/bin:/tmp/home/.mise/shims:${PATH}"
 
 ARG USER_ID
 ARG GROUP_ID
@@ -13,4 +22,4 @@ RUN if ! getent passwd "$USER_ID" >/dev/null 2>&1; then adduser -u "$USER_ID" -S
 WORKDIR /var/www
 USER $USER_ID
 
-ENTRYPOINT ["/tmp/home/go/bin/air"]
+ENTRYPOINT ["/usr/local/bin/mise", "exec", "--", "air"]

@@ -6,9 +6,11 @@ echo -e "\e[34mSet git hooks\e[0m"
 elc set-hooks .git_hooks
 
 echo -e "\e[34mInstall dependencies\e[0m"
-elc run go install github.com/air-verse/air@latest
-elc run go install github.com/go-delve/delve/cmd/dlv@latest
 elc run go mod tidy
+
+echo -e "\e[34mInstall project tools\e[0m"
+elc run mise trust
+elc run mise run tools:install
 
 echo -e "\e[34mPreconfigure\e[0m"
 cp .env.example .env
