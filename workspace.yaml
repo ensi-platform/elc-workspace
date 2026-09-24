@@ -120,7 +120,7 @@ services:
     variables:
       APP_IMAGE: dockerhub.greensight.ru/services/redis-commander:latest #original docker image - rediscommander/redis-commander:latest
     tags:
-      - system
+      - debug
     dependencies:
       proxy: [default]
       redis: [default]
@@ -138,7 +138,7 @@ services:
     variables:
       APP_IMAGE: dockerhub.greensight.ru/services/kafka-ui:1.3.0 #original docker image - ghcr.io/kafbat/kafka-ui:1.3.0
     tags:
-      - system
+      - debug
     dependencies:
       proxy: [default]
       kafka: [default]
@@ -175,6 +175,18 @@ services:
       - code
       - app
       - backend
+    dependencies:
+      proxy:    [default]
+
+  seller-gui-frontend:
+    extends: nodejs-next-dev
+    path: ${APPS_ROOT}/${SVC_SELLER_GUI_FRONTEND_PATH:-seller-gui/seller-gui-frontend}
+    variables:
+      API_HOST: http://seller-gui-backend.${BASE_DOMAIN}
+    repository: git@gitlab.com:greensight/ensi/seller-gui/seller-gui-frontend.git
+    tags:
+      - code
+      - app
     dependencies:
       proxy:    [default]
 
@@ -564,7 +576,7 @@ modules:
     path: ${PACKAGES_PATH}/action-audit-event-producer
     hosted_in: cms-cms
     exec_path: ${PACKAGES_PATH}/action-audit-event-producer
-    repository: git@gitlab.com:greensight/ensi/units/clients/action-audit-client-php.git
+    repository: git@gitlab.com:greensight/ensi/packages/action-audit-event-producer.git
     tags:
       - code
       - lib
@@ -813,6 +825,70 @@ modules:
     hosted_in: cms-cms
     exec_path: ${PACKAGES_PATH}/${PKG_CLOUD_API_SDK_PHP_PATH:-cloud-api-sdk-php}
     repository: git@gitlab.com:greensight/ensi/catalog/clients/cloud-api-sdk-php.git
+    tags:
+      - code
+      - lib
+  goravel-ensi-http-client:
+    path: ${PACKAGES_PATH}/goravel-ensi-http-client
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/goravel-ensi-http-client
+    repository: git@gitlab.com:greensight/ensi/packages/goravel-ensi-http-client.git
+    tags:
+      - code
+      - lib
+  php-user-types:
+    path: ${PACKAGES_PATH}/php-user-types
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/php-user-types
+    repository: git@gitlab.com:greensight/ensi/packages/php-user-types.git
+    tags:
+      - code
+      - lib
+  laravel-ensi-filesystem:
+    path: ${PACKAGES_PATH}/laravel-ensi-filesystem
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/laravel-ensi-filesystem
+    repository: git@gitlab.com:greensight/ensi/packages/laravel-ensi-filesystem.git
+    tags:
+      - code
+      - lib
+  laravel-ensi-audit:
+    path: ${PACKAGES_PATH}/laravel-ensi-audit
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/laravel-ensi-audit
+    repository: git@gitlab.com:greensight/ensi/packages/laravel-ensi-audit.git
+    tags:
+      - code
+      - lib
+  laravel-channel-helper:
+    path: ${PACKAGES_PATH}/laravel-channel-helper
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/laravel-channel-helper
+    repository: git@gitlab.com:greensight/ensi/packages/laravel-channel-helper.git
+    tags:
+      - code
+      - lib
+  openapi-client-generator-php-templates:
+    path: ${PACKAGES_PATH}/openapi-client-generator-php-templates
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/openapi-client-generator-php-templates
+    repository: git@gitlab.com:greensight/ensi/packages/openapi-client-generator-php-templates.git
+    tags:
+      - code
+      - lib
+  openapi-server-generator-templates:
+    path: ${PACKAGES_PATH}/openapi-server-generator-templates
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/openapi-server-generator-templates
+    repository: git@gitlab.com:greensight/ensi/packages/openapi-server-generator-templates.git
+    tags:
+      - code
+      - lib
+  backend-service-skeleton:
+    path: ${PACKAGES_PATH}/backend-service-skeleton
+    hosted_in: cms-cms
+    exec_path: ${PACKAGES_PATH}/backend-service-skeleton
+    repository: git@gitlab.com:greensight/ensi/templates/backend-service-skeleton.git
     tags:
       - code
       - lib
