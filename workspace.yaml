@@ -284,6 +284,17 @@ services:
     variables:
       DB_NAME: cms_cms
 
+  cms-cms-go:
+    extends: go
+    path: ${APPS_ROOT}/${SVC_CMS_CMS_GO_PATH:-cms/cms-go}
+    repository: git@gitlab.com:greensight/ensi/cms/cms-go.git
+    tags:
+      - code
+      - app
+      - backend
+    dependencies:
+      proxy: [ default ]
+
   communication-communication:
     extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_COMMUNICATION_COMMUNICATION_PATH:-communication/communication}
@@ -446,6 +457,17 @@ services:
       proxy:    [default]
     variables:
       DB_NAME: orders_oms
+
+  orders-oms-go:
+    extends: go
+    path: ${APPS_ROOT}/${SVC_ORDERS_OMS_GO_PATH:-orders/oms-go}
+    repository: git@gitlab.com:greensight/ensi/orders-oms-go.git
+    tags:
+      - code
+      - app
+      - backend
+    dependencies:
+      proxy: [ default ]
 
   orders-packing:
     extends: swoole-8.4
