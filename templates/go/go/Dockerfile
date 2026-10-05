@@ -22,4 +22,4 @@ RUN if ! getent passwd "$USER_ID" >/dev/null 2>&1; then adduser -u "$USER_ID" -S
 WORKDIR /var/www
 USER $USER_ID
 
-ENTRYPOINT ["/usr/local/bin/mise", "exec", "--", "air"]
+ENTRYPOINT ["/usr/local/bin/mise", "exec", "--", "air", "--build.stop_on_error=true"]
