@@ -57,8 +57,8 @@ templates:
     path: ${WORKSPACE_PATH}/templates/go
     after_clone_hook: ${TPL_PATH}/hooks/after-clone.sh
     variables:
-      BASE_IMAGE: golang:1.27.2-alpine3.24
-      APP_IMAGE: golang:1.27.2-alpine3.24
+      BASE_IMAGE: golang:1.27.3-alpine3.24
+      APP_IMAGE: golang:1.27.3-alpine3.24
 
 services:
 
