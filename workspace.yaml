@@ -401,6 +401,17 @@ services:
     variables:
       DB_NAME: logistic_geo
 
+  logistic-geo-go:
+    extends: go
+    path: ${APPS_ROOT}/${SVC_LOGISTIC_GEO_GO_PATH:-logistic/geo-go}
+    repository: git@gitlab.com:greensight/ensi/logistic/geo-go.git
+    tags:
+      - code
+      - app
+      - backend
+    dependencies:
+      proxy: [ default ]
+
   logistic-logistic:
     extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_LOGISTIC_LOGISTIC_PATH:-logistic/logistic}
