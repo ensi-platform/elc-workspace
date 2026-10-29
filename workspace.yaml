@@ -270,6 +270,17 @@ services:
     variables:
       DB_NAME: catalog_pim
 
+  catalog-pim-go:
+    extends: go
+    path: ${APPS_ROOT}/${SVC_CATALOG_PIM_GO_PATH:-catalog/pim-go}
+    repository: git@gitlab.com:greensight/ensi/catalog/pim-go.git
+    tags:
+      - code
+      - app
+      - backend
+    dependencies:
+      proxy: [ default ]
+
   cms-cms:
     extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_CMS_CMS_PATH:-cms/cms}
