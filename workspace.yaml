@@ -494,6 +494,17 @@ services:
     variables:
       DB_NAME: orders_packing
 
+  orders-packing-go:
+    extends: go
+    path: ${APPS_ROOT}/${SVC_ORDERS_PACKING_GO_PATH:-orders/packing-go}
+    repository: git@gitlab.com:greensight/ensi/orders/packing-go.git
+    tags:
+      - code
+      - app
+      - backend
+    dependencies:
+      proxy: [ default ]
+
   reviews-reviews:
     extends: swoole-8.4
     path: ${APPS_ROOT}/${SVC_REVIEWS_REVIEWS_PATH:-reviews/reviews}
